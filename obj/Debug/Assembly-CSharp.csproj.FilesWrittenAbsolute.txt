@@ -1,0 +1,17 @@
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Assembly-CSharp.dll.mdb
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Assembly-CSharp.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/obj/Debug/Assembly-CSharp.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/obj/Debug/Assembly-CSharp.dll.mdb
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/UnityEngine.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/UnityEditor.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/UnityEngine.UI.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/UnityEngine.Networking.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Mono.Cecil.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Unity.SerializationLogic.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Unity.DataContract.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/ICSharpCode.NRefactory.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Unity.UNetWeaver.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Unity.UNetWeaver.dll.mdb
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Unity.CecilTools.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Mono.Cecil.Pdb.dll
+/Users/ReedErlandson/Desktop/VR/CubeSketch/Temp/bin/Debug/Mono.Cecil.Mdb.dll

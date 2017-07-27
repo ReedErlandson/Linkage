@@ -1,0 +1,260 @@
+fileFormatVersion: 2
+guid: 911c61a71a36bac46addc34eb60011a0
+timeCreated: 1467622658
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Leaves____001
+    100002: Leaves____015
+    100004: Leaves____016
+    100006: Leaves____017
+    100008: Leaves____018
+    100010: Leaves____019
+    100012: Leaves____020
+    100014: Leaves____021
+    100016: Leaves____022
+    100018: Leaves____023
+    100020: Leaves____024
+    100022: Leaves____025
+    100024: Leaves____026
+    100026: Leaves____027
+    100028: Leaves____028
+    100030: Plant_001
+    100032: Plant_002
+    100034: Plant_003
+    100036: Plant_004
+    100038: Plant_005
+    100040: Plant_006
+    100042: Plant_007
+    100044: Plant_008
+    100046: Plant_009
+    100048: Plant_010
+    100050: Plant_011
+    100052: Plant_012
+    100054: Plant_013
+    100056: Plant_014
+    100058: Plant_015
+    100060: Plants _Room_1
+    100062: Plants _Room_5
+    100064: Plants _Room_6
+    100066: //RootNode
+    100068: Pot____001
+    100070: Pot____015
+    100072: Pot____016
+    100074: Pot____017
+    100076: Pot____018
+    100078: Pot____019
+    100080: Pot____020
+    100082: Pot____021
+    100084: Pot____022
+    100086: Pot____023
+    100088: Pot____024
+    100090: Pot____025
+    100092: Pot____026
+    100094: Pot____027
+    100096: Pot____028
+    400000: Leaves____001
+    400002: Leaves____015
+    400004: Leaves____016
+    400006: Leaves____017
+    400008: Leaves____018
+    400010: Leaves____019
+    400012: Leaves____020
+    400014: Leaves____021
+    400016: Leaves____022
+    400018: Leaves____023
+    400020: Leaves____024
+    400022: Leaves____025
+    400024: Leaves____026
+    400026: Leaves____027
+    400028: Leaves____028
+    400030: Plant_001
+    400032: Plant_002
+    400034: Plant_003
+    400036: Plant_004
+    400038: Plant_005
+    400040: Plant_006
+    400042: Plant_007
+    400044: Plant_008
+    400046: Plant_009
+    400048: Plant_010
+    400050: Plant_011
+    400052: Plant_012
+    400054: Plant_013
+    400056: Plant_014
+    400058: Plant_015
+    400060: Plants _Room_1
+    400062: Plants _Room_5
+    400064: Plants _Room_6
+    400066: //RootNode
+    400068: Pot____001
+    400070: Pot____015
+    400072: Pot____016
+    400074: Pot____017
+    400076: Pot____018
+    400078: Pot____019
+    400080: Pot____020
+    400082: Pot____021
+    400084: Pot____022
+    400086: Pot____023
+    400088: Pot____024
+    400090: Pot____025
+    400092: Pot____026
+    400094: Pot____027
+    400096: Pot____028
+    2300000: Leaves____001
+    2300002: Leaves____015
+    2300004: Leaves____016
+    2300006: Leaves____017
+    2300008: Leaves____018
+    2300010: Leaves____019
+    2300012: Leaves____020
+    2300014: Leaves____021
+    2300016: Leaves____022
+    2300018: Leaves____023
+    2300020: Leaves____024
+    2300022: Leaves____025
+    2300024: Leaves____026
+    2300026: Leaves____027
+    2300028: Leaves____028
+    2300030: Pot____001
+    2300032: Pot____015
+    2300034: Pot____016
+    2300036: Pot____017
+    2300038: Pot____018
+    2300040: Pot____019
+    2300042: Pot____020
+    2300044: Pot____021
+    2300046: Pot____022
+    2300048: Pot____023
+    2300050: Pot____024
+    2300052: Pot____025
+    2300054: Pot____026
+    2300056: Pot____027
+    2300058: Pot____028
+    3300000: Leaves____001
+    3300002: Leaves____015
+    3300004: Leaves____016
+    3300006: Leaves____017
+    3300008: Leaves____018
+    3300010: Leaves____019
+    3300012: Leaves____020
+    3300014: Leaves____021
+    3300016: Leaves____022
+    3300018: Leaves____023
+    3300020: Leaves____024
+    3300022: Leaves____025
+    3300024: Leaves____026
+    3300026: Leaves____027
+    3300028: Leaves____028
+    3300030: Pot____001
+    3300032: Pot____015
+    3300034: Pot____016
+    3300036: Pot____017
+    3300038: Pot____018
+    3300040: Pot____019
+    3300042: Pot____020
+    3300044: Pot____021
+    3300046: Pot____022
+    3300048: Pot____023
+    3300050: Pot____024
+    3300052: Pot____025
+    3300054: Pot____026
+    3300056: Pot____027
+    3300058: Pot____028
+    4300000: Leaves____001
+    4300002: Pot____001
+    4300004: Leaves____015
+    4300006: Pot____015
+    4300008: Leaves____016
+    4300010: Pot____016
+    4300012: Leaves____017
+    4300014: Pot____017
+    4300016: Leaves____018
+    4300018: Pot____018
+    4300020: Leaves____019
+    4300022: Pot____019
+    4300024: Leaves____020
+    4300026: Pot____020
+    4300028: Leaves____021
+    4300030: Pot____021
+    4300032: Leaves____026
+    4300034: Pot____026
+    4300036: Leaves____027
+    4300038: Pot____027
+    4300040: Leaves____028
+    4300042: Pot____028
+    4300044: Leaves____025
+    4300046: Pot____025
+    4300048: Leaves____022
+    4300050: Pot____022
+    4300052: Leaves____023
+    4300054: Pot____023
+    4300056: Leaves____024
+    4300058: Pot____024
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,509 @@
+fileFormatVersion: 2
+guid: 0cdea7c50e68a3e4faceedd565f6f4a5
+timeCreated: 1467546601
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: Lift_Ceiling_Module_002
+    100004: Lift_Ceiling_Module_003
+    100006: Lift_Door_Module_006
+    100008: Lift_Door_Module_007
+    100010: Lift_Floor_Module_002
+    100012: Lift_Floor_Module_003
+    100014: Lift_Room001
+    100016: Lift_Wall_Door_Module003
+    100018: Lift_Wall_Door_Module_003
+    100020: Lift_Wall_Module_006
+    100022: Lift_Wall_Module_007
+    100024: Lift_Wall_Module_008
+    100026: Lift_Wall_Module_009
+    100028: Lift_Wall_Module_010
+    100030: Lift_Wall_Module_011
+    400000: //RootNode
+    400002: Lift_Ceiling_Module_002
+    400004: Lift_Ceiling_Module_003
+    400006: Lift_Door_Module_006
+    400008: Lift_Door_Module_007
+    400010: Lift_Floor_Module_002
+    400012: Lift_Floor_Module_003
+    400014: Lift_Room001
+    400016: Lift_Wall_Door_Module003
+    400018: Lift_Wall_Door_Module_003
+    400020: Lift_Wall_Module_006
+    400022: Lift_Wall_Module_007
+    400024: Lift_Wall_Module_008
+    400026: Lift_Wall_Module_009
+    400028: Lift_Wall_Module_010
+    400030: Lift_Wall_Module_011
+    2300000: Lift_Ceiling_Module_002
+    2300002: Lift_Ceiling_Module_003
+    2300004: Lift_Door_Module_006
+    2300006: Lift_Door_Module_007
+    2300008: Lift_Floor_Module_002
+    2300010: Lift_Floor_Module_003
+    2300012: Lift_Wall_Door_Module_003
+    2300014: Lift_Wall_Module_006
+    2300016: Lift_Wall_Module_007
+    2300018: Lift_Wall_Module_008
+    2300020: Lift_Wall_Module_009
+    2300022: Lift_Wall_Module_010
+    2300024: Lift_Wall_Module_011
+    3300000: Lift_Ceiling_Module_002
+    3300002: Lift_Ceiling_Module_003
+    3300004: Lift_Door_Module_006
+    3300006: Lift_Door_Module_007
+    3300008: Lift_Floor_Module_002
+    3300010: Lift_Floor_Module_003
+    3300012: Lift_Wall_Door_Module_003
+    3300014: Lift_Wall_Module_006
+    3300016: Lift_Wall_Module_007
+    3300018: Lift_Wall_Module_008
+    3300020: Lift_Wall_Module_009
+    3300022: Lift_Wall_Module_010
+    3300024: Lift_Wall_Module_011
+    4300000: Lift_Door_Module_006
+    4300002: Lift_Door_Module_007
+    4300004: Lift_Wall_Door_Module_003
+    4300006: Lift_Floor_Module_002
+    4300008: Lift_Ceiling_Module_002
+    4300010: Lift_Wall_Module_006
+    4300012: Lift_Wall_Module_007
+    4300014: Lift_Wall_Module_008
+    4300016: Lift_Wall_Module_009
+    4300018: Lift_Ceiling_Module_003
+    4300020: Lift_Wall_Module_010
+    4300022: Lift_Wall_Module_011
+    4300024: Lift_Floor_Module_003
+    7400000: Lift_Door_Level_1_Open
+    7400002: Lift_Door_Level_1_Close
+    7400004: Lift_Moves_Down
+    7400006: ' Lift_Moves_Up'
+    7400008: Lift_Door_Level_2_Open
+    7400010: Lift_Door_Level_2_Close
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Lift_Door_Level_1_Open
+      takeName: Take 001
+      firstFrame: 10
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Lift_Room001
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_006
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_007
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_008
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_009
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_010
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_011
+        weight: 1
+      - path: Lift_Wall_Door_Module003
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_006
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_007
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Wall_Door_Module_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 10
+    - serializedVersion: 16
+      name: Lift_Door_Level_1_Close
+      takeName: Take 001
+      firstFrame: 60
+      lastFrame: 100
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Lift_Room001
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_006
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_007
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_008
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_009
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_010
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_011
+        weight: 1
+      - path: Lift_Wall_Door_Module003
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_006
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_007
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Wall_Door_Module_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 10
+    - serializedVersion: 16
+      name: Lift_Moves_Down
+      takeName: Take 001
+      firstFrame: 110
+      lastFrame: 160
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Lift_Room001
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_006
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_007
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_008
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_009
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_010
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_011
+        weight: 1
+      - path: Lift_Wall_Door_Module003
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_006
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_007
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Wall_Door_Module_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 10
+    - serializedVersion: 16
+      name: ' Lift_Moves_Up'
+      takeName: Take 001
+      firstFrame: 300
+      lastFrame: 350
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Lift_Room001
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_006
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_007
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_008
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_009
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_010
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_011
+        weight: 1
+      - path: Lift_Wall_Door_Module003
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_006
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_007
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Wall_Door_Module_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 10
+    - serializedVersion: 16
+      name: Lift_Door_Level_2_Open
+      takeName: Take 001
+      firstFrame: 170
+      lastFrame: 220
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Lift_Room001
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_006
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_007
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_008
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_009
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_010
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_011
+        weight: 1
+      - path: Lift_Wall_Door_Module003
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_006
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_007
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Wall_Door_Module_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 10
+    - serializedVersion: 16
+      name: Lift_Door_Level_2_Close
+      takeName: Take 001
+      firstFrame: 220
+      lastFrame: 260
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Lift_Room001
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Ceiling_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_002
+        weight: 1
+      - path: Lift_Room001/Lift_Floor_Module_003
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_006
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_007
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_008
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_009
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_010
+        weight: 1
+      - path: Lift_Room001/Lift_Wall_Module_011
+        weight: 1
+      - path: Lift_Wall_Door_Module003
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_006
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Door_Module_007
+        weight: 1
+      - path: Lift_Wall_Door_Module003/Lift_Wall_Door_Module_003
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 10
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
