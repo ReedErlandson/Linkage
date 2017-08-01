@@ -24,6 +24,13 @@ public class CsvReader : MonoBehaviour
 
 		while((inp_ln=csvStringReader.ReadLine())!=null){
 
+            // Accessibility
+            inp_ln = inp_ln.Split('-')[0]; // comments marked by '-' are ignored by thing
+
+            if (inp_ln == "") { // ignores empty lines
+                continue;
+            }
+
 			for (int n = 0; n < managerCall.nodeCount; n++) {
 				List<CubeMap> newList = new List<CubeMap> ();
 				tempNodeList.Add (newList);
@@ -39,7 +46,7 @@ public class CsvReader : MonoBehaviour
 				string[]readLineArray = readFaceArray[f].Split('.');
 				char[,] charrayFuel = new char[dim,dim];
 
-				for (int l = 0; l < readLineArray.Length; l++) { //for each line
+				for (int l = 0; l < readLineArray.Length; l++) { //for each row
 					char[] readLineCharray = readLineArray[l].ToCharArray();
 					for (int c = 0; c < readLineCharray.Length; c++) {
 						charrayFuel [l, c] = readLineCharray[c];

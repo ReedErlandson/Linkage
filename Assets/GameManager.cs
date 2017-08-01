@@ -18,26 +18,32 @@ public class GameManager : MonoBehaviour
 	//tools
 	bool paintDebug = false;
 
-	//audio
-	AudioSource audioSrc;
-	public AudioClip tileClick;
-	public AudioClip gateClick;
+    //audio
+    [Header("Audio")]
+    public AudioClip tileClick;
+    public AudioClip gateClick;
+    AudioSource audioSrc;
 
-	//definitions
-	public List<CubeMap> levelArray;
+
+    //definitions
+    
+    public List<CubeMap> levelArray;
 	public List<List<CubeMap>> NodeArray;
 	char[,] LFCharray;
 	public FaceMap lockedFace;
 	public FaceMap blankFace;
 	public CubeMap uiCube;
-	public Color[] tileColorArray;
+
+    [Space()]
+    public Color[] tileColorArray;
 
 	//tiles
 	Tile clickTarget;
 	int paintSlug = 1;
 
-	//ui
-	public GameObject uiBoard;
+    //ui
+    [Header("UI")]
+    public GameObject uiBoard;
 	public GameObject uiHeader;
 	public Transform uiPointer;
 	public List<GameObject> uiObjects;
@@ -45,8 +51,9 @@ public class GameManager : MonoBehaviour
 	public List<GameObject> nodeKits;
 	public List<GameObject> activeKits;
 
-	//logic
-	public List<Tile> tileArray;
+    //logic
+    [Header("Tile Type Mangers")]
+    public List<Tile> tileArray;
 	public List<GameObject> tileObjArray;
 	public List<Tile> gateArray;
 	public int[] wrapPointerArray; //left, up, right, down
@@ -54,14 +61,16 @@ public class GameManager : MonoBehaviour
 	public List<Tile> pingedTiles;
 	public List<GameObject> tileIconArray;
 
-	//hints
-	public List<SolutionMap> solutionArray;
+    //hints
+    [Header("Hint Manager")]
 	public float hintTimer = 1.5f;
 	public float downTime, upTime, pressTime = 0;
 	public bool hintReady = false;
+    public List<SolutionMap> solutionArray;
 
-	//levels
-	public int nodeCount = 2;
+    //levels
+    [Header("Level Manager")]
+    public int nodeCount = 2;
 	int currentLevel = 0;
 	int currentNode = 0;
 	public int levelColorCount = 0;
@@ -72,13 +81,15 @@ public class GameManager : MonoBehaviour
 	//loading progress
 	public List<bool[]> levelTracker;
 
-	//file path stuff
-	public string levelPath;
+    //file path stuff
+    [Header("File pathing")]
+    public string levelPath;
 	public string result = "";
 	public string solutionPath;
 	public string solutionResult = "";
 
 	//light
+    [Space()]
 	public Light ceilingLight;
 
 	//Debug vars
@@ -123,7 +134,11 @@ public class GameManager : MonoBehaviour
 		char[,] AFCharray = { { '1', '1', '1', '1' }, { '1', '1', '1', '1' }, { '1', '1', '1', '1' }, { '1', '1', '1', '1' } };
 		blankFace = new FaceMap(AFCharray);
 		List<FaceMap> uiCubeFML = new List<FaceMap>();
-		uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace);
+
+		//uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace); uiCubeFML.Add(blankFace);
+        for (int i = 0; i < 6; i++) {
+            uiCubeFML.Add(blankFace);
+        }
 		uiCube = new CubeMap(4, 6, uiCubeFML);
 
 		levelArray = new List<CubeMap>();
@@ -131,13 +146,11 @@ public class GameManager : MonoBehaviour
 
 		StartCoroutine("pathEnum");
 		StartCoroutine("solutionPathEnum");
-
 	}
 
 
 	// Update is called once per frame
-	void Update()
-	{
+	void Update() {
 		mouseAudit();
 		swipeAudit();
 		toolAudit ();
@@ -146,36 +159,38 @@ public class GameManager : MonoBehaviour
 	//path ienumerator
 	IEnumerator pathEnum()
 	{
+        string result = "";
 		if (levelPath.Contains("://"))
 		{
 			WWW www = new WWW(levelPath);
 			yield return www;
 			result = www.text;
-			csvrCall.readCSV(result);
+			//csvrCall.readCSV(result);
 		}
 		else
 		{
 			result = System.IO.File.ReadAllText(levelPath);
-			csvrCall.readCSV(result);
+			//csvrCall.readCSV(result);
 		}
-	}
+        csvrCall.readCSV(result);
+    }
 
 	//solution path ienumerator
-	IEnumerator solutionPathEnum()
-	{
-		if (solutionPath.Contains("://"))
-		{
+	IEnumerator solutionPathEnum() {
+        string solutionResult = "";
+		if (solutionPath.Contains("://")) {
 			WWW swww = new WWW(solutionPath);
 			yield return swww;
 			solutionResult = swww.text;
-			txtCall.readTXT(solutionResult, solutionArray);
+			//txtCall.readTXT(solutionResult, solutionArray);
 		}
 		else
 		{
 			solutionResult = System.IO.File.ReadAllText(solutionPath);
-			txtCall.readTXT(solutionResult, solutionArray);
+			//txtCall.readTXT(solutionResult, solutionArray);
 		}
-	}
+        txtCall.readTXT(solutionResult, solutionArray);
+    }
 
 	void toolAudit(){
 		if (Input.GetKeyDown (KeyCode.Alpha1)) {
@@ -198,6 +213,7 @@ public class GameManager : MonoBehaviour
 		} else if (Input.GetKeyDown (KeyCode.Alpha9)) {
 			paintToolLoad (8);
 		}
+
 		if (paintDebug && Input.GetKeyDown(KeyCode.M)) {
 			string levelCode = "";
 			List<Tile> tileSortList = new List<Tile> ();
@@ -233,6 +249,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
+    // allows you to spin the cube horizontally to change the face in front of you
 	void swipeAudit()
 	{
 		if (nodeSelect && !swiping)
@@ -250,8 +267,10 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+    // manages face rotation on swipe
 	public IEnumerator translateNodeBills(bool isLeft)
 	{
+        // JOSE TODO: there is probably a way to simplify this. Possibly with an array/List
 		Vector3 frontPos = new Vector3(0, 10, 5);
 		Vector3 leftPos = new Vector3(-10, 10, -5);
 		Vector3 backPos = new Vector3(0, 10, -10);
@@ -361,29 +380,51 @@ public class GameManager : MonoBehaviour
 			}
 
 			if (clickTarget == null) {
-				#if UNITY_ANDROID
+#if UNITY_ANDROID
 				if (cursorCall.focusedGM.name == "Compy" && GvrController.ClickButtonDown) {
-				#else
-				if (cursorCall.focusedGM.name == "Compy" && Input.GetMouseButtonDown(0)) {
-				#endif
-					if (!activeCubeFlag) {
-						packSelectDraw ();
-					}
-				}
-				#if UNITY_ANDROID
+#else
+
+                // if you click the globe podium, open up pack select
+                if (cursorCall.focusedGM != null) // JOSE: something I added, just so it doesnt throw an error if the focusedGM is deleted
+                {
+                    if (cursorCall.focusedGM.name == "Compy" && Input.GetMouseButtonDown(0))
+                    {
+#endif
+                        if (!activeCubeFlag)
+                        {
+                            packSelectDraw();
+                        }
+                    }
+#if UNITY_ANDROID
 				if (cursorCall.focusedGM.name == "Bill" && nodeSelect && cursorCall.focusedGM.GetComponentInParent<nodeBillScript>().isActive == true && GvrController.ClickButtonDown) {
-				#else
-				if (cursorCall.focusedGM.name == "Bill" && nodeSelect && cursorCall.focusedGM.GetComponentInParent<nodeBillScript>().isActive == true && Input.GetMouseButtonDown (0)) {
-				#endif
-					levelSelectDraw ();
-				}
+#else
+
+                    // if its a pack. open up level select
+                    if (cursorCall.focusedGM.name == "Bill" && nodeSelect && cursorCall.focusedGM.GetComponentInParent<nodeBillScript>().isActive == true && Input.GetMouseButtonDown(0))
+                    {
+#endif
+                        levelSelectDraw();
+                    }
+                }
 			}
 			else if (clickTarget.isActive) {
-				if (clickTarget.index!= 99 && clickTarget.index != 0 && levelTracker[clickTarget.fNo-1][clickTarget.index-1]==true || clickTarget.index==1) {//selected valid level
+                /*
+                //Reed's code
+                if (clickTarget.index!= 99 && clickTarget.index != 0 && levelTracker[clickTarget.fNo-1][clickTarget.index-1]==true || clickTarget.index==1) {//selected valid level
 					currentLevel = clickTarget.index-2;
+                    
 					levelJanitor ();
 				}
-				else if (clickTarget.tileType < 10 && clickTarget.tileType != 1) {//is gate
+                /*/
+                //Jose's new code. A bit sloppy for now, but just so I can have more than 16 levels. 
+                if (clickTarget.index!= 99 && clickTarget.index != 0 || clickTarget.index==1) {//selected valid level
+					currentLevel = clickTarget.index-2;
+                    
+					levelJanitor ();
+				}                 
+                //*/
+
+                else if (clickTarget.tileType < 10 && clickTarget.tileType != 1) {//is gate
 					if (clickTarget.tileType != paintSlug - 8) {
 						updatePaintSlug ();
 					}
@@ -497,6 +538,7 @@ public class GameManager : MonoBehaviour
 
 	}
 
+    // clears old level and opens new level
 	void levelJanitor() {
 
 		currentLevel += 1;
@@ -544,8 +586,10 @@ public class GameManager : MonoBehaviour
 	}
 
 	void packSelectDraw() {
-		Destroy (computron);
-		GameObject newNodeBill = Instantiate(nodeKits[0], new Vector3 (-10,10,-5), Quaternion.identity) as GameObject;
+        //JOSE TODO: (Possible Improvement) Destroying computron throws a null reference error. Meaning it is probably referenced somwhere else in the code
+        //On top of that, if we ever wnat to get back to computron, we wont be able to (might have solved this on line 377)
+        Destroy(computron); 
+        GameObject newNodeBill = Instantiate(nodeKits[0], new Vector3 (-10,10,-5), Quaternion.identity) as GameObject;
 		GameObject newNodeBill2 = Instantiate (nodeKits[1], new Vector3 (0, 10, 5), Quaternion.identity) as GameObject;
 		GameObject newNodeBill3 = Instantiate(nodeKits[2], new Vector3(10, 10, -5), Quaternion.identity) as GameObject;
 		newNodeBill.transform.Rotate(0, -90, 0);
@@ -555,10 +599,11 @@ public class GameManager : MonoBehaviour
 		activeKits.Add(newNodeBill3);
 		newNodeBill2.GetComponent<nodeBillScript> ().isActive = true;
 		nodeSelect = true;
-	}
+    }
 
 	void levelSelectDraw() {
-		foreach (GameObject aObj in activeKits) {
+        //JOSE TODO: (Possible Improvement) Destroying level select draw seems to throw an error. (might have solved this on line 377)
+        foreach (GameObject aObj in activeKits) {
 			Destroy (aObj);
 		}
 		factoryCall.drawCube (uiCube, true);

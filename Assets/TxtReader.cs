@@ -9,26 +9,24 @@ public class TxtReader : MonoBehaviour
 	//linkage
 	GameManager managerCall;
 
-	void Start () {
-
-	}
-
+    //fedTXT is the csv Im guessing, and fedList is the given solution map
 	public void readTXT(string fedTXT, List<SolutionMap> fedList) {
-
+        print(fedTXT);
 		managerCall = GetComponent<GameManager>();
 
 		StringReader txtStringReader = new StringReader(fedTXT);
 		string inp_ln;
-		while((inp_ln=txtStringReader.ReadLine())!=null){
+		while((inp_ln=txtStringReader.ReadLine())!=null){  // for every map in the fedTXT file...
 
 			List<Solution> newSolList = new List<Solution>();
 
 			List<int> readTypeArray = new List<int>();
-			string[] readSolArray = inp_ln.Split (',');
+			string[] readSolArray = inp_ln.Split (','); // splits the solution by each of it's faces 
 			for (int l = 0; l < readSolArray.Length; l++) {
 				readTypeArray.Add((int)char.GetNumericValue(readSolArray[l][0]));
 				readSolArray [l] = readSolArray [l].Substring (2);
 			}
+
 			for (int m = 0; m < readSolArray.Length; m++) {
 				List<int> newSolIntList = new List<int> ();
 				string[] solBitAr = readSolArray [m].Split ('.');
