@@ -219,9 +219,9 @@ public class GameManager : MonoBehaviour
 			List<Tile> tileSortList = new List<Tile> ();
 
 			foreach (GameObject aTile in tileObjArray) {
-				if (aTile.GetComponent<Tile> ().fNo <= 3) {
+				//if (aTile.GetComponent<Tile> ().fNo <= 3) {
 					tileSortList.Add (aTile.GetComponent<Tile> ());
-				}
+				//}
 			}
 
 			//tileSortList = tileSortList.OrderByDescending (x => x.fNo).ToList();
