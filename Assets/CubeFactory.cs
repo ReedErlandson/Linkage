@@ -69,14 +69,23 @@ public class CubeFactory : MonoBehaviour {
 
                 /*/
                 // Jose's setup. allows for up to 32 levels. Can make more flexible in the future
-                if (isMenu && (faceNum == 1 || faceNum == 4)) {
-                    newTile.GetComponent<Tile>().index = (size * size - size + 1) - y * 4 + x;
-                    newTile.GetComponent<Tile>().index += faceNum == 4 ? 16 : 0;
-
-                    GameObject newGuiNum = Instantiate(guiNumPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-                    newGuiNum.transform.localPosition = new Vector3(0, 0, -0.01f);
-                    newGuiNum.transform.SetParent(newTile.transform, false);
-                    newGuiNum.GetComponent<TextMesh>().text = newTile.GetComponent<Tile>().index.ToString();
+                if (isMenu)
+                {
+                    
+                    int index = (size * size - size + 1) - y * 4 + x;
+                    index += faceNum == 4 ? 16 : 0; 
+                    if ((faceNum == 1 || faceNum == 4) && managerCall.validLevel(managerCall.currentNode, index)) {
+                        newTile.GetComponent<Tile>().index = index;
+                        GameObject newGuiNum = Instantiate(guiNumPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                        newGuiNum.transform.localPosition = new Vector3(0, 0, -0.01f);
+                        newGuiNum.transform.SetParent(newTile.transform, false);
+                        newGuiNum.GetComponent<TextMesh>().text = newTile.GetComponent<Tile>().index.ToString();
+                    }
+                    else
+                    {
+                        newTile.GetComponent<Tile>().tileType = 0;
+                        newTile.GetComponent<Tile>().updateFlag = true;
+                    }
                 }
                 //*/
 

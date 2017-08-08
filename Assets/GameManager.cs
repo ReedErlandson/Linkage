@@ -71,8 +71,8 @@ public class GameManager : MonoBehaviour
     //levels
     [Header("Level Manager")]
     public int nodeCount = 2;
-	int currentLevel = 0;
-	int currentNode = 0;
+	public int currentLevel = 0;
+	public int currentNode = 0;
 	public int levelColorCount = 0;
 	bool levelCompleted = false;
 	bool nodeSelect = false;
@@ -87,6 +87,9 @@ public class GameManager : MonoBehaviour
 	public string result = "";
 	public string solutionPath;
 	public string solutionResult = "";
+
+    [Header("Tile Editor")]
+    public bool editMode;
 
 	//light
     [Space()]
@@ -153,7 +156,14 @@ public class GameManager : MonoBehaviour
 	void Update() {
 		mouseAudit();
 		swipeAudit();
-		toolAudit ();
+
+        if (Input.GetKeyDown(KeyCode.E)) {
+            editMode = !editMode;
+            print("edit mode " + (editMode ? "ON" : "OFF"));
+        }
+
+        if(editMode)
+		    toolAudit ();
 	}
 
 	//path ienumerator
@@ -192,29 +202,37 @@ public class GameManager : MonoBehaviour
         txtCall.readTXT(solutionResult, solutionArray);
     }
 
-	void toolAudit(){
-		if (Input.GetKeyDown (KeyCode.Alpha1)) {
+    void toolAudit(){
+        if (Input.GetKeyDown (KeyCode.Alpha1)) {
 			paintToolLoad (0);
-			paintDebug = true;
-		} else if (Input.GetKeyDown (KeyCode.Alpha2)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha2)) {
 			paintToolLoad (1);
-		} else if (Input.GetKeyDown (KeyCode.Alpha3)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha3)) {
 			paintToolLoad (2);
-		} else if (Input.GetKeyDown (KeyCode.Alpha4)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha4)) {
 			paintToolLoad (3);
-		} else if (Input.GetKeyDown (KeyCode.Alpha5)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha5)) {
 			paintToolLoad (4);
-		} else if (Input.GetKeyDown (KeyCode.Alpha6)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha6)) {
 			paintToolLoad (5);
-		} else if (Input.GetKeyDown (KeyCode.Alpha7)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha7)) {
 			paintToolLoad (6);
-		} else if (Input.GetKeyDown (KeyCode.Alpha8)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha8)) {
 			paintToolLoad (7);
-		} else if (Input.GetKeyDown (KeyCode.Alpha9)) {
+            paintDebug = true;
+        } else if (Input.GetKeyDown (KeyCode.Alpha9)) {
 			paintToolLoad (8);
-		}
+            paintDebug = true;
+        }
 
-		if (paintDebug && Input.GetKeyDown(KeyCode.M)) {
+        if (editMode && Input.GetKeyDown(KeyCode.M)) {
 			string levelCode = "";
 			List<Tile> tileSortList = new List<Tile> ();
 
@@ -283,6 +301,7 @@ public class GameManager : MonoBehaviour
 		float movespeed = 1f;
 		float startTime = Time.time;
 		int indexTarget;
+
 		if (isLeft)
 		{
 			indexTarget = currentNode+3;
@@ -311,7 +330,6 @@ public class GameManager : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log(progress);
 				activeKits[1].transform.position = Vector3.Lerp(leftPos, frontPos, progress);
 				activeKits[1].transform.rotation = Quaternion.Lerp(leftRot, frontRot, progress);
 				activeKits[2].transform.position = Vector3.Lerp(frontPos, rightPos, progress);
@@ -357,6 +375,7 @@ public class GameManager : MonoBehaviour
 			activeKits.RemoveAt(3);
 			currentNode -= 1;
 		}
+
 		activeKits[0].GetComponent<nodeBillScript> ().isActive = false;
 		activeKits[1].GetComponent<nodeBillScript> ().isActive = true;
 		activeKits[2].GetComponent<nodeBillScript> ().isActive = false;
@@ -379,7 +398,8 @@ public class GameManager : MonoBehaviour
 				levelJanitor ();
 			}
 
-			if (clickTarget == null) {
+            if (clickTarget == null)
+            {
 #if UNITY_ANDROID
 				if (cursorCall.focusedGM.name == "Compy" && GvrController.ClickButtonDown) {
 #else
@@ -406,8 +426,8 @@ public class GameManager : MonoBehaviour
                         levelSelectDraw();
                     }
                 }
-			}
-			else if (clickTarget.isActive) {
+            }
+            else if (clickTarget.isActive || editMode) {
                 /*
                 //Reed's code
                 if (clickTarget.index!= 99 && clickTarget.index != 0 && levelTracker[clickTarget.fNo-1][clickTarget.index-1]==true || clickTarget.index==1) {//selected valid level
@@ -417,34 +437,48 @@ public class GameManager : MonoBehaviour
 				}
                 /*/
                 //Jose's new code. A bit sloppy for now, but just so I can have more than 16 levels. 
-                if (clickTarget.index!= 99 && clickTarget.index != 0 || clickTarget.index==1) {//selected valid level
-					currentLevel = clickTarget.index-2;
-                    
-					levelJanitor ();
-				}                 
+                if (clickTarget.index != 99 && clickTarget.index != 0 || clickTarget.index == 1) {//selected valid level
+                    currentLevel = clickTarget.index - 2;
+
+                    levelJanitor();
+                }
                 //*/
 
                 else if (clickTarget.tileType < 10 && clickTarget.tileType != 1) {//is gate
-					if (clickTarget.tileType != paintSlug - 8) {
-						updatePaintSlug ();
-					}
-					//is gate, hint code
-					if (hintReady==false) {
-						downTime = Time.time;
-						pressTime = downTime + hintTimer;
-						hintReady = true;
-					}
-					if (Time.time >= pressTime && hintReady==true) {
-						paintHint (clickTarget.tileType, currentLevel);
-						hintReady = false;
-					}
-				} else { //not gate
-					hintReady = false;
-					if (clickTarget.tileType != paintSlug) {
-						updateClickedTile (clickTarget);
-					}
-				}
-			}
+                    if (paintDebug) {
+                        updateClickedTile(clickTarget);
+                        if (paintSlug > 1)
+                        {
+                            paintDebug = false;
+                            paintToolLoad(1);
+                        }
+                    }
+                    else if (clickTarget.tileType != 1) {
+                        if (clickTarget.tileType != paintSlug - 8) {
+                            updatePaintSlug();
+                        }
+                        //is gate, hint code
+                        if (hintReady == false) {
+                            downTime = Time.time;
+                            pressTime = downTime + hintTimer;
+                            hintReady = true;
+                        }
+                        if (Time.time >= pressTime && hintReady == true) {
+                            paintHint(clickTarget.tileType, currentLevel);
+                            hintReady = false;
+                        }
+                    }
+                }
+                else
+                { //not gate
+                    hintReady = false;
+                    if (clickTarget.tileType != paintSlug)
+                    {
+                        updateClickedTile(clickTarget);
+                    }
+                }
+                
+            }
 		}
 
 		#if UNITY_ANDROID
@@ -502,7 +536,7 @@ public class GameManager : MonoBehaviour
 		}
 
 		//check level complete
-		if (!levelCompleted && !paintDebug) {
+		if (!levelCompleted && !paintDebug && !editMode) {
 			for (int i = 2; i < levelColorCount+2; i++) {
 				if (linkStateArray [i] != 1) {
 					return;
@@ -612,5 +646,9 @@ public class GameManager : MonoBehaviour
 		nodeSelect = false;
 		activeCubeFlag = true;
 	}
+
+    public bool validLevel(int currentNode, int currentLevel) {
+        return NodeArray.Count > currentNode && NodeArray[currentNode].Count > currentLevel;
+    }
 
 }
