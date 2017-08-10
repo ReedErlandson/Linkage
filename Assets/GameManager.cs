@@ -122,8 +122,8 @@ public class GameManager : MonoBehaviour
 		levelTracker = new List<bool[]>();
 		SaveLoad.Load(levelTracker);
 
-		//solutions
-		solutionArray = new List<SolutionMap>();
+        //solutions
+        solutionArray = new List<SolutionMap>();
 
 		//light
 		ceilingLight = GameObject.Find("CeilingLight").GetComponent<Light>();
@@ -147,7 +147,10 @@ public class GameManager : MonoBehaviour
 		levelArray = new List<CubeMap>();
 		NodeArray = new List<List<CubeMap>>();
 
-		StartCoroutine("pathEnum");
+        //updateLevelTracker();
+        //SaveLoad.Load(levelTracker);
+
+        StartCoroutine("pathEnum");
 		StartCoroutine("solutionPathEnum");
 	}
 
@@ -162,7 +165,7 @@ public class GameManager : MonoBehaviour
             print("edit mode " + (editMode ? "ON" : "OFF"));
         }
 
-        if(editMode)
+        if (editMode)
 		    toolAudit ();
 	}
 
@@ -272,12 +275,12 @@ public class GameManager : MonoBehaviour
 	{
 		if (nodeSelect && !swiping)
 		{
-			if (Input.GetKeyDown("left") && currentNode < nodeCount)
+			if (Input.GetKeyDown("left"))
 			{
 				StartCoroutine(translateNodeBills(true));
 				swiping = true;
 			}
-			else if (Input.GetKeyDown("right") && currentNode > 0)
+			else if (Input.GetKeyDown("right"))
 			{
 				StartCoroutine(translateNodeBills(false));
 				swiping = true;
@@ -288,98 +291,85 @@ public class GameManager : MonoBehaviour
     // manages face rotation on swipe
 	public IEnumerator translateNodeBills(bool isLeft)
 	{
-        // JOSE TODO: there is probably a way to simplify this. Possibly with an array/List
-		Vector3 frontPos = new Vector3(0, 10, 5);
-		Vector3 leftPos = new Vector3(-10, 10, -5);
-		Vector3 backPos = new Vector3(0, 10, -10);
-		Vector3 rightPos = new Vector3(10, 10, -5);
-		Quaternion frontRot = Quaternion.Euler(0,0,0);
-		Quaternion rightRot = Quaternion.Euler(0, 90, 0);
-		Quaternion backRot = Quaternion.Euler(0, 180, 0);
-		Quaternion leftRot = Quaternion.Euler(0, -90, 0);
-		float progress = 0f;
+        // JOSE TODO: Switched everything so its in arrays. There is probably an even better way to do this is I can find a pattern between 
+        // each coordinate, but I'll tackle that another time
+
+        Vector3[] positions = new Vector3[4];
+        positions[0] = new Vector3(10, 10, -5);
+        positions[1] = new Vector3(0, 10, 5);
+        positions[2] = new Vector3(-10, 10, -5);     
+        positions[3] = new Vector3(0, 10, -10);
+
+        float progress = 0f;
 		float movespeed = 1f;
 		float startTime = Time.time;
 		int indexTarget;
-
-		if (isLeft)
-		{
+        
+		if (isLeft) {
 			indexTarget = currentNode+3;
-			GameObject newNodeBill4 = Instantiate(nodeKits[indexTarget], new Vector3(0, 10, -10), backRot) as GameObject;
+            indexTarget %= nodeKits.Count;
+			GameObject newNodeBill4 = Instantiate(nodeKits[indexTarget], positions[3], Quaternion.Euler(0, -180, 0)) as GameObject;
 			activeKits.Add(newNodeBill4);
-		}
-		else
-		{
+            Destroy(activeKits[0]);
+        } else {
 			indexTarget = currentNode-1;
-			GameObject newNodeBill4 = Instantiate(nodeKits[indexTarget], new Vector3(0, 10, -10), backRot) as GameObject;
+
+            if (indexTarget < 0)
+                indexTarget += nodeKits.Count;
+
+            indexTarget %= nodeKits.Count;
+            GameObject newNodeBill4 = Instantiate(nodeKits[indexTarget], positions[3], Quaternion.Euler(0, -180, 0)) as GameObject;
 			activeKits.Insert(0, newNodeBill4);
-		}
-		while (progress < 1)
-		{
+            Destroy(activeKits[3]);
+        }
+        
+		while (progress < 1) {
 			progress = Time.time - startTime;
-			if (isLeft)
-			{
-				activeKits[0].transform.position = Vector3.Lerp(leftPos, backPos, progress);
-				activeKits[0].transform.rotation = Quaternion.Lerp(leftRot, backRot, progress);
-				activeKits[1].transform.position = Vector3.Lerp(frontPos, leftPos, progress);
-				activeKits[1].transform.rotation = Quaternion.Lerp(frontRot, leftRot, progress);
-				activeKits[2].transform.position = Vector3.Lerp(rightPos, frontPos, progress);
-				activeKits[2].transform.rotation = Quaternion.Lerp(rightRot, frontRot, progress);
-				activeKits[3].transform.position = Vector3.Lerp(backPos, rightPos, progress);
-				activeKits[3].transform.rotation = Quaternion.Lerp(backRot, rightRot, progress);
-			}
-			else
-			{
-				activeKits[1].transform.position = Vector3.Lerp(leftPos, frontPos, progress);
-				activeKits[1].transform.rotation = Quaternion.Lerp(leftRot, frontRot, progress);
-				activeKits[2].transform.position = Vector3.Lerp(frontPos, rightPos, progress);
-				activeKits[2].transform.rotation = Quaternion.Lerp(frontRot, rightRot, progress);
-				activeKits[3].transform.position = Vector3.Lerp(rightPos, backPos, progress);
-				activeKits[3].transform.rotation = Quaternion.Lerp(rightRot, backRot, progress);
-				activeKits[0].transform.position = Vector3.Lerp(backPos, leftPos, progress);
-				activeKits[0].transform.rotation = Quaternion.Lerp(backRot, leftRot, progress);
-			}
+			if (isLeft) {
+                for (int i = 1; i < 4; i++)  {
+                    activeKits[i].transform.position = Vector3.Lerp(positions[i], positions[i - 1], progress);
+                    activeKits[i].transform.rotation = Quaternion.Lerp(Quaternion.Euler(0, 90 - 90 * (i), 0), Quaternion.Euler(0, 90 - 90 * (i - 1), 0), progress);
+                }
+
+            } else {
+                for (int i = 0; i < 3; i++)  {
+                    int index = i - 1;
+                    if (index == -1) {
+                        index += 4;
+                    }
+
+                    activeKits[i].transform.position = Vector3.Lerp(positions[index], positions[i], progress);
+                    activeKits[i].transform.rotation = Quaternion.Lerp(Quaternion.Euler(0, 90 - 90 * index, 0), Quaternion.Euler(0, 90 - 90 * (i), 0), progress);
+                }
+            }
 			yield return null;
 		}
-		if (isLeft)
-		{
-			activeKits[0].transform.position = backPos;
-			activeKits[0].transform.rotation = backRot;
-			activeKits[1].transform.position = leftPos;
-			activeKits[1].transform.rotation = leftRot;
-			activeKits[2].transform.position = frontPos;
-			activeKits[2].transform.rotation = frontRot;
-			activeKits[3].transform.position = rightPos;
-			activeKits[3].transform.rotation = rightRot;
-		}
-		else
-		{
-			activeKits[1].transform.position = frontPos;
-			activeKits[1].transform.rotation = frontRot;
-			activeKits[2].transform.position = rightPos;
-			activeKits[2].transform.rotation = rightRot;
-			activeKits[3].transform.position = backPos;
-			activeKits[3].transform.rotation = backRot;
-			activeKits[0].transform.position = leftPos;
-			activeKits[0].transform.rotation = leftRot;
-		}
-		if (isLeft)
-		{
-			Destroy(activeKits[0]);
-			activeKits.RemoveAt(0);
-			currentNode += 1;
-		}
-		else
-		{
-			Destroy(activeKits[3]);
-			activeKits.RemoveAt(3);
-			currentNode -= 1;
-		}
+        
+        if (isLeft) {                   
+            for (int i = 1; i < 4; i++) {
+                activeKits[i].transform.position = positions[i - 1];
+                activeKits[i].transform.rotation = Quaternion.Euler(0, 90 - 90 * (i - 1), 0);
+            }    
+            activeKits.RemoveAt(0);
+            currentNode -= 1;
 
-		activeKits[0].GetComponent<nodeBillScript> ().isActive = false;
-		activeKits[1].GetComponent<nodeBillScript> ().isActive = true;
-		activeKits[2].GetComponent<nodeBillScript> ().isActive = false;
-		swiping = false;
+        } else {
+            for (int i = 0; i < 3; i++) {
+                activeKits[i].transform.position = positions[i];
+                activeKits[i].transform.rotation = Quaternion.Euler(0, 90 - 90 * i, 0);
+            }        
+            activeKits.RemoveAt(3);
+            currentNode += 1;
+        }
+
+        if (currentNode == -1)
+            currentNode += nodeKits.Count;
+
+        currentNode %= nodeKits.Count;
+        for (int i = 0; i < 3; i++) {
+            activeKits[i].GetComponent<nodeBillScript>().isActive = i == 1;
+        }
+        swiping = false;
 	}
 
 	void mouseAudit() {
@@ -436,10 +426,14 @@ public class GameManager : MonoBehaviour
 					levelJanitor ();
 				}
                 /*/
-                //Jose's new code. A bit sloppy for now, but just so I can have more than 16 levels. 
-                if (clickTarget.index != 99 && clickTarget.index != 0 || clickTarget.index == 1) {//selected valid level
-                    currentLevel = clickTarget.index - 2;
 
+                //go back to pack select
+                if (clickTarget.index == 0) {
+                    packSelectDraw();
+                }
+                //Jose's new code. A bit sloppy for now, but just so I can have more than 16 levels. 
+                else if (clickTarget.index != 99 && clickTarget.index != 0 || clickTarget.index == 1) {//selected valid level
+                    currentLevel = clickTarget.index - 2;
                     levelJanitor();
                 }
                 //*/
@@ -550,9 +544,9 @@ public class GameManager : MonoBehaviour
 	void levelBookend() {
 		levelCompleted = true;
 
-		//save level win
-		levelTracker[currentNode][currentLevel+1]=true;
-		SaveLoad.Save(levelTracker);
+		//save level win. Need to Figure this out...
+		//levelTracker[currentNode][currentLevel+1]=true;
+		//SaveLoad.Save(levelTracker);
 
 		foreach (Tile eaTile in tileArray) {
 			eaTile.isActive = false;
@@ -577,27 +571,10 @@ public class GameManager : MonoBehaviour
 
 		currentLevel += 1;
 		levelColorCount = 0;
-		gateArray.Clear ();
-		tileArray.Clear ();
-		foreach (GameObject eachTile in tileObjArray) {
-			Destroy (eachTile);
-		}
-		tileObjArray.Clear ();
-		foreach (GameObject eachObj in uiObjects) {
-			Destroy (eachObj);
-		}
-		uiObjects.Clear ();
-		for (int i = 0; i < linkStateArray.Length; i++) {
-			linkStateArray [i] = 0;
-		}
+        clearTiles();
 
-		paintSlug = 1;
-		remoteLR.material.SetColor("_EmissionColor", tileColorArray[1]);
-		activeCubeFlag = false;
-		levelCompleted = false;
-
-		//load new level
-		factoryCall.drawCube (NodeArray[currentNode][currentLevel], false);
+        //load new level
+        factoryCall.drawCube (NodeArray[currentNode][currentLevel], false);
 		ceilingLight.color = Color.white;
 		ceilingLight.intensity = 1.3f;
 		activeCubeFlag = true;	
@@ -622,7 +599,9 @@ public class GameManager : MonoBehaviour
 	void packSelectDraw() {
         //JOSE TODO: (Possible Improvement) Destroying computron throws a null reference error. Meaning it is probably referenced somwhere else in the code
         //On top of that, if we ever wnat to get back to computron, we wont be able to (might have solved this on line 377)
-        Destroy(computron); 
+        Destroy(computron);
+        activeKits.Clear();
+        clearTiles();
         GameObject newNodeBill = Instantiate(nodeKits[0], new Vector3 (-10,10,-5), Quaternion.identity) as GameObject;
 		GameObject newNodeBill2 = Instantiate (nodeKits[1], new Vector3 (0, 10, 5), Quaternion.identity) as GameObject;
 		GameObject newNodeBill3 = Instantiate(nodeKits[2], new Vector3(10, 10, -5), Quaternion.identity) as GameObject;
@@ -640,12 +619,51 @@ public class GameManager : MonoBehaviour
         foreach (GameObject aObj in activeKits) {
 			Destroy (aObj);
 		}
+        clearTiles();
+
 		factoryCall.drawCube (uiCube, true);
 		ceilingLight.color = Color.white;
 		ceilingLight.intensity = 1.3f;
 		nodeSelect = false;
 		activeCubeFlag = true;
 	}
+
+    public void clearTiles() {
+        gateArray.Clear();
+        tileArray.Clear();
+        foreach (GameObject eachTile in tileObjArray)
+        {
+            Destroy(eachTile);
+        }
+        tileObjArray.Clear();
+        foreach (GameObject eachObj in uiObjects)
+        {
+            Destroy(eachObj);
+        }
+        uiObjects.Clear();
+        for (int i = 0; i < linkStateArray.Length; i++)
+        {
+            linkStateArray[i] = 0;
+        }
+
+        paintSlug = 1;
+        remoteLR.material.SetColor("_EmissionColor", tileColorArray[1]);
+        activeCubeFlag = false;
+        levelCompleted = false;
+    }
+
+    public void updateLevelTracker() {
+        List<bool[]> oldLevelTracker = new List<bool[]>(NodeArray.Count);
+        for (int i = 0; i < oldLevelTracker.Count; i++) {
+            if (levelTracker.Count > i) {
+                oldLevelTracker[i] = (bool[])oldLevelTracker[i].Clone();
+            } else {
+                oldLevelTracker[i] = new bool[NodeArray[currentNode].Count];
+            }
+        }
+
+        SaveLoad.Save(levelTracker);
+    }
 
     public bool validLevel(int currentNode, int currentLevel) {
         return NodeArray.Count > currentNode && NodeArray[currentNode].Count > currentLevel;
