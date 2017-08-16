@@ -37,6 +37,7 @@ public class CsvReader : MonoBehaviour
 			}
 
 			int dim = (int)char.GetNumericValue (inp_ln [0]);
+
 			int nodeTarget = (int)char.GetNumericValue (inp_ln [1]);
 			inp_ln = inp_ln.Substring(3);
 			List<FaceMap> newFML = new List<FaceMap> ();
@@ -44,16 +45,14 @@ public class CsvReader : MonoBehaviour
 
 			for (int f = 0; f < readFaceArray.Length; f++) { //for each face
 				string[]readLineArray = readFaceArray[f].Split('.');
-				char[,] charrayFuel = new char[dim,dim];
+				int[,] charrayFuel = new int[dim,dim];
 
 				for (int l = 0; l < readLineArray.Length; l++) { //for each row
 					char[] readLineCharray = readLineArray[l].ToCharArray();
 					for (int c = 0; c < readLineCharray.Length; c++) {
-                        //print(readLineCharray[c]);
-						charrayFuel [l, c] = readLineCharray[c];
+						charrayFuel [l, c] = (int)readLineCharray[c] - 97;
 					}
 				}
-
 				FaceMap newFM = new FaceMap (charrayFuel);
 				newFML.Add (newFM);
 

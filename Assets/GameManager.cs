@@ -125,12 +125,12 @@ public class GameManager : MonoBehaviour
 		ceilingLight = GameObject.Find("CeilingLight").GetComponent<Light>();
 
 		//path biz
-		levelPath = System.IO.Path.Combine(Application.streamingAssetsPath, "csv2.csv");
+		levelPath = System.IO.Path.Combine(Application.streamingAssetsPath, "csv1.csv");
 		solutionPath = System.IO.Path.Combine(Application.streamingAssetsPath, "solutions.txt");
 
-		char[,] LFCharray = { { '0', '0', '0', '0' }, { '0', '0', '0', '0' }, { '0', '0', '0', '0' }, { '0', '0', '0', '0' } };
+		int[,] LFCharray = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 		lockedFace = new FaceMap(LFCharray);
-		char[,] AFCharray = { { '1', '1', '1', '1' }, { '1', '1', '1', '1' }, { '1', '1', '1', '1' }, { '1', '1', '1', '1' } };
+		int[,] AFCharray = { { 1, 1,1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 } };
 		blankFace = new FaceMap(AFCharray);
 		List<FaceMap> uiCubeFML = new List<FaceMap>();
 
@@ -203,32 +203,13 @@ public class GameManager : MonoBehaviour
     }
 
     void toolAudit(){
-        if (Input.GetKeyDown (KeyCode.Alpha1)) {
-			paintToolLoad (0);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha2)) {
-			paintToolLoad (1);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha3)) {
-			paintToolLoad (2);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha4)) {
-			paintToolLoad (3);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha5)) {
-			paintToolLoad (4);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha6)) {
-			paintToolLoad (5);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha7)) {
-			paintToolLoad (6);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha8)) {
-			paintToolLoad (7);
-            paintDebug = true;
-        } else if (Input.GetKeyDown (KeyCode.Alpha9)) {
-			paintToolLoad (8);
+        if (Input.GetAxis("Mouse ScrollWheel") != 0) {
+            int targetColor = paintSlug + (int)Mathf.Sign(Input.GetAxis("Mouse ScrollWheel"));
+            if (targetColor < 0)
+                targetColor += 13;
+
+            targetColor %= 13;
+            paintToolLoad(targetColor);
             paintDebug = true;
         }
 
@@ -253,7 +234,7 @@ public class GameManager : MonoBehaviour
             print(numFaces);
 
 			for (int i = 0; i < tileSortList.Count; i++) {
-				levelCode += tileSortList [i].tileType.ToString ();
+				levelCode += (char) (tileSortList [i].tileType + 97);
 
 				if (i!=0 && (i+1) % Mathf.Pow(numFaces, 2) == 0) {
 					levelCode += ",";
@@ -441,7 +422,7 @@ public class GameManager : MonoBehaviour
                 }
                 //*/
 
-                else if (clickTarget.tileType < 10 && clickTarget.tileType != 1) {//is gate
+                else if (clickTarget.tileType < 26 && clickTarget.tileType > 1) {//is gate
                     if (paintDebug) {
                         updateClickedTile(clickTarget);
                         if (paintSlug > 1)
@@ -449,9 +430,8 @@ public class GameManager : MonoBehaviour
                             paintDebug = false;
                             paintToolLoad(1);
                         }
-                    }
-                    else if (clickTarget.tileType != 1) {
-                        if (clickTarget.tileType != paintSlug - 8) {
+                    } else if (clickTarget.tileType > 1) {
+                        if (clickTarget.tileType != paintSlug - 24) {
                             updatePaintSlug();
                         }
                         //is gate, hint code
@@ -469,8 +449,7 @@ public class GameManager : MonoBehaviour
                 else
                 { //not gate
                     hintReady = false;
-                    if (clickTarget.tileType != paintSlug)
-                    {
+                    if (clickTarget.tileType != paintSlug && (clickTarget.tileType != 0 || paintSlug <= 24)) {
                         updateClickedTile(clickTarget);
                     }
                 }
@@ -486,7 +465,7 @@ public class GameManager : MonoBehaviour
 			paintSlug = 1;
 			remoteLR.material.SetColor("_EmissionColor", tileColorArray[1]);
 			foreach (Tile tileTarget in tileArray) {
-				if (tileTarget.isActive && tileTarget.tileType >9) {
+				if (tileTarget.isActive && tileTarget.tileType > 25) {
 					tileTarget.tileType = 1;
 					tileTarget.updateFlag = true;
 				}
@@ -503,8 +482,8 @@ public class GameManager : MonoBehaviour
 	}
 
 	void updatePaintSlug() {
-		paintSlug = clickTarget.tileType+8;
-		remoteLR.material.SetColor("_EmissionColor", tileColorArray[clickTarget.tileType + 8]);
+		paintSlug = clickTarget.tileType+24;
+		remoteLR.material.SetColor("_EmissionColor", tileColorArray[clickTarget.tileType + 24]);
 		audioSrc.PlayOneShot(gateClick, 0.8F);
 	}
 
@@ -545,9 +524,9 @@ public class GameManager : MonoBehaviour
 
 	void levelBookend() {
 		levelCompleted = true;
-
+        printSolutions();
         //save level win. Need to Figure this out...
-		levelTracker[currentNode][currentLevel+1]=true;
+        levelTracker[currentNode][currentLevel+1]=true;
 		SaveLoad.Save(levelTracker);
 
 		foreach (Tile eaTile in tileArray) {
@@ -570,7 +549,6 @@ public class GameManager : MonoBehaviour
 
     // clears old level and opens new level
 	void levelJanitor() {
-
 		currentLevel += 1;
 		levelColorCount = 0;
         clearTiles();
@@ -591,7 +569,7 @@ public class GameManager : MonoBehaviour
 			int yPoint = (int)char.GetNumericValue(coOrdSetString [2]);
 			foreach (Tile tPoint in tileArray) {
 				if (tPoint.fNo == fPoint && tPoint.xPos == xPoint && tPoint.yPos == yPoint) {
-					tPoint.tileType = colorPointer + 8;
+					tPoint.tileType = colorPointer + 24;
 					updateClickedTile (tPoint);
 				}
 			}
@@ -676,7 +654,7 @@ public class GameManager : MonoBehaviour
         SaveLoad.Save(levelTracker);
     }
 
-        public void printSolutions() {
+    public void printSolutions() {
 
         string solution = "";
         for (int i = 0; i < gateArray.Count; i++) {
@@ -684,7 +662,7 @@ public class GameManager : MonoBehaviour
 
             bool firstOne = true;
             for (int j = 0; j < tileArray.Count; j++) { //there is probably a waaaaaay better way of doing this. 
-                if (tileArray[j].tileType == gateArray[i].tileType + 8) {
+                if (tileArray[j].tileType == gateArray[i].tileType + 24) {
                     if (firstOne) {
                         solution += "" + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;
                         firstOne = false;
@@ -697,6 +675,10 @@ public class GameManager : MonoBehaviour
             solution += ",";
         }
 
+        StreamWriter writer = new StreamWriter(solutionPath, true);
+        writer.WriteLine("\n" + solution);
+        writer.Close();
+
         print(solution);
     }
 
@@ -706,7 +688,6 @@ public class GameManager : MonoBehaviour
 
     public bool checkLevelStatus(int currentNode, int currentLevel) {
         return levelTracker[currentNode][currentLevel];
-        //return false;
     }
 
 }

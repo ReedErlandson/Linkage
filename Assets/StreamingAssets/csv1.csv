@@ -1,61 +1,61 @@
 - pack 1 (17 levels)
-40:0000.2112.0000.0000
-40:2112.0000.3130.0000
-40:2111.3131.1111.2000
-40:1111.0001.1121.1111,1111.1000.1211.3031
-40:1112.1111.1131.1141,3411.1112.1111.1111
-40:0411.1131.1411.0000,0000.1121.1311.1120
-40:1111.1000.1000.3000,1111.0001.0001.0002,1120.0003.0001.0001
-40:3111.1541.1411.1111,1112.1511.1311.1112
-40:1114.1251.3411.1112,5111.1111.1311.1111
-40:1111.0111.0431.1202,1111.1110.1340.1111,1111.1001.1001.1111
-40:1111.1115.4111.1154,1111.1111.1311.1111,1112.1000.1002.1131
-40:0012.0010.1110.0000,0000.0000.0211.0000,0000.0000.0000.0000
-40:1111.1115.4111.1154,1111.1111.1311.1111,1112.1000.1002.1131
-40:0012.0010.1110.0000,0000.0000.0211.0000,0000.0000.0000.0000
-40:0012.0010.1110.0000,0000.0000.0211.0000,0000.0000.0000.0000
+40:aaaa.cbbc.aaaa.aaaa
+40:cbbc.aaaa.dbda.aaaa
+40:cbbb.dbdb.bbbb.caaa
+40:bbbb.aaab.bbcb.bbbb,bbbb.baaa.bcbb.dadb
+40:bbbc.bbbb.bbdb.bbeb,debb.bbbc.bbbb.bbbb
+40:aebb.bbdb.bebb.aaaa,aaaa.bbcb.bdbb.bbca
+40:bbbb.baaa.baaa.daaa,bbbb.aaab.aaab.aaac,bbca.aaad.aaab.aaab
+40:dbbb.bfeb.bebb.bbbb,bbbc.bfbb.bdbb.bbbc
+40:bbbe.bcfb.debb.bbbc,fbbb.bbbb..bbbb
+40:bbbb.abbb.aedb.bcac,bbbb.bbba.bdea.bbbb,bbbb.baab.baab.bbbb
+40:bbbb.bbbf.ebbb.bbfe,bbbb.bbbb.bdbb.bbbb,bbbc.baaa.baac.bbdb
+40:aabc.aaba.bbba.aaaa,aaaa.aaaa.acbb.aaaa,aaaa.aaaa.aaaa.aaaa
+40:bbbb.bbbf.ebbb.bbfe,bbbb.bbbb.bdbb.bbbb,bbbc.baaa.baac.bbdb
+40:aabc.aaba.bbba.aaaa,aaaa.aaaa.acbb.aaaa,aaaa.aaaa.aaaa.aaaa
+40:aabc.aaba.bbba.aaaa,aaaa.aaaa.acbb.aaaa,aaaa.aaaa.aaaa.aaaa
 
-- pack 2 (2 levels)
-41:1000.0000.0000.0000,0000.0000.0000.0000,0000.0000.0000.0000
-41:1111.1111.1111.1111,1111.1111.1111.1111
+- pack c (c levels)
+41:baaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa
+41:bbbb.bbbb.bbbb.bbbb,bbbb.bbbb.bbbb.bbbb
 
-- pack 3 (this is where I am putting all the levels Im working on)
+- pack d (this is where I am putting all the levels Im working on)
 - this is the current editor the current editor
 
--62:111111.111111.111111.111111.111111.111111,111111.111111.111111.111111.111111.111111,111111.111111.111111.111111.111111.111111,111111.111111.111111.111111.111111.111111,111111.111111.111111.111111.111111.111111,111111.111111.111111.111111.111111.111111
-52:11111.11111.11111.11111.11111,11111.11111.11111.11111.11111,11111.11111.11111.11111.11111,11111.11111.11111.11111.11111,11111.11111.11111.11111.11111,11111.11111.11111.11111.11111
--42:1111.1111.1111.1111,1111.1111.1111.1111,1111.1001.1001.1111,1111.1111.1111.1111,1111.1111.1111.1111,1111.1111.1111.1111
+-62:bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb,bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb,bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb,bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb,bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb,bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb.bbbbbb
+-52:bbbbb.bbbbb.bbbbb.bbbbb.bbbbb,bbbbb.bbbbb.bbbbb.bbbbb.bbbbb,bbbbb.bbbbb.bbbbb.bbbbb.bbbbb,bbbbb.bbbbb.bbbbb.bbbbb.bbbbb,bbbbb.bbbbb.bbbbb.bbbbb.bbbbb,bbbbb.bbbbb.bbbbb.bbbbb.bbbbb
+42:bbbb.bbbb.bbbb.bbbb,bbbb.bbbb.bbbb.bbbb,bbbb.baab.baab.bbbb,bbbb.bbbb.bbbb.bbbb,bbbb.bbbb.bbbb.bbbb,bbbb.bbbb.bbbb.bbbb
 
-52:11411.11111.11111.11111.06111,00230.00110.00111.00111.00115,00000.00100.00100.00000.31117,07000.01000.11000.11000.11000,00000.00000.00000.00000.00000,01511.61111.11142.00000.00000
-52:11117.11111.71111.61111.21150,00000.00000.00000.00000.00000,00000.00100.00100.00000.00000,21113.11611.11111.11111.53414,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000
-52:01711.01111.01131.01111.71211,00000.00000.00000.00000.00000,00002.00001.00101.00001.51116,11141.16131.15111.11111.11114,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000
-52:31112.11411.11111.11311.21114,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000
-52:11112.11113.11011.14041.23111,00000.00000.00000.00000.00000,00000.00100.00100.00000.00000,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000,00000.00000.00000.00000.00000
-42:1111.1001.1001.1003,1002.1001.1001.1111,0000.0000.0000.0000,2111.4005.1001.1511,1111.1113.1011.1041,1001.1001.1001.1001
-42:0000.0000.0000.0000,0052.1111.5001.1111,0000.0000.0000.0000,2413.1110.1113.1114,0000.0000.0000.0000,6711.1011.1671.1111
-42:1111.1401.1111.1043,0000.0000.0000.0000,0000.0000.0000.0000,0000.0000.0000.0000,5152.1111.1611.1171,1132.1161.1711.1011
-42:2002.1141.1161.1111,0000.0000.0000.0000,0000.0000.0000.0000,0000.0000.0000.0000,1111.1131.1141.1111,1111.1111.1161.1131
-42:0001.0001.0001.0007,1114.1212.1114.1113,0000.0000.0000.0000,7115.1116.1610.1115,0003.0001.0001.0001,0000.0000.0000.0000
-42:1111.1111.1161.6711,0011.1111.1211.0031,1231.1001.1001.4114,1100.1111.1111.1500,0000.1111.1111.0000,1011.5007.0000.0000
-42:6116.1115.1111.4141,0001.0001.0001.0001,0000.0000.0000.1152,1000.1000.1000.3000,0000.0000.0000.0000,2311.0000.0000.0000
-42:2111.1111.1411.3114,0000.0000.0000.0000,0000.0000.0000.0000,0000.1111.1111.0000,1215.1516.1611.1113,0000.0000.0000.0000
-42:0000.0154.0111.0110,0250.0110.0110.0110,0000.0000.0000.0000,0310.0410.0110.0110,0000.0000.3112.0110,1111.1001.1001.1111
-42:0000.0000.0000.0000,1111.1151.1111.1454,1071.1001.1001.1321,6131.0111.0111.6111,8111.1187.1112.1111,0000.0000.0000.0000
-42:0117.0100.1711.1110,1131.1111.1111.1116,1430.1000.4000.1120,0000.0005.5001.0000,2111.1111.1111.6111,0000.0000.0000.0000
-42:0000.0000.1130.1111,0000.0000.0211.0114,0000.0000.0000.0000,0000.0000.0311.0616,0000.0000.1120.4110,5151.1101.1111.1111
-42:1111.1111.0001.0007,1114.1111.1100.1113,1001.1001.1001.1001,1111.1601.1101.5165,1132.1141.1171.2111,0000.0000.0000.0000
-42:6113.1111.6541.3111,0011.0011.0011.0015,0000.0000.2002.1111,1100.1100.1100.1100,0000.0000.0000.0000,4111.1111.0000.0000
-42:1111.1013.1011.1111,0000.0000.0000.0000,0000.0000.0000.0000,1111.4143.1112.1115,0000.0000.0000.0000,1176.1111.1176.2150
-42:0000.6243.1111.1111,0000.0005.0001.0011,0000.0000.0000.0000,0000.1100.4300.1200,0000.0000.0000.0000,1111.1156.0000.0000
-42:1112.1511.1111.4611,0000.0000.0000.0000,0000.0000.0000.0000,1111.1431.1111.6532,0000.0000.0000.0000,0000.0000.0000.0000
-42:0003.5006.3001.2002,5111.1141.1111.1111,0000.0000.0000.0000,1111.0000.1111.1111,1411.1111.1611.1111,0000.0000.0000.0000
-42:1111.5171.1107.3111,5111.6116.1111.2000,0000.0000.0000.0000,1112.1111.1143.1400,0000.0000.0000.0000,0000.0000.0000.0000
-42:1111.4111.1102.3211,0000.0000.0000.0000,5003.1001.1001.1541,0000.0000.0000.0000,0000.0000.0000.0000,0000.0000.0000.0000
-42:1700.1000.1000.0000,1431.1111.1151.6161,1100.1000.1000.1200,0000.0000.0000.0000,0034.0011.0011.0011,1100.5100.1700.1200
-42:0000.0000.0000.0000,1132.1111.1104.3111,0000.0000.0000.0000,0052.1111.1141.5111,0000.0000.0000.0000,0000.1111.1111.0000
-42:0000.0000.1156.3111,0000.0000.2111.1114,0000.0000.0000.0000,0000.0000.0001.1111,0000.0000.1116.1115,1111.1231.1111.1141
-42:6111.1514.1111.6115,0001.0001.0001.0003,1111.1001.2002.1141,0000.0000.1000.3000,0000.0000.0000.0000,0000.0000.0000.0000
-42:4111.5111.1013.1511,0001.0001.0001.0004,0000.0000.2002.1131,1000.1000.1000.1000,0000.0000.0000.0000,0000.0000.0000.0000
-42:1111.1111.1304.2411,0000.0000.0000.0000,0000.0000.0000.0000,1100.1100.1100.3200
-42:1111.1431.1111.1111,0000.0000.0011.0010,0000.0000.0000.0000,0000.0000.0000.0000,0000.0000.0000.0000,4011.1232.0000.0000
-42:1110.5130.2110.1050,1111.1011.1213.4114,0000.0000.0000.0000,0000.0000.0000.0000,0000.0000.0000.0000,1000.1000.1000.1000
+52:bbebb.bbbbb.bbbbb.bbbbb.agbbb,aacda.aabba.aabbb.aabbb.aabbf,aaaaa.aabaa.aabaa.aaaaa.dbbbh,ahaaa.abaaa.bbaaa.bbaaa.bbaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,abfbb.gbbbb.bbbec.aaaaa.aaaaa
+52:bbbbh.bbbbb.hbbbb.gbbbb.cbbfa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aabaa.aabaa.aaaaa.aaaaa,cbbbd.bbgbb.bbbbb.bbbbb.fdebe,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa
+52:abhbb.abbbb.abbdb.abbbb.hbcbb,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaac.aaaab.aabab.aaaab.fbbbg,bbbeb.bgbdb.bfbbb.bbbbb.bbbbe,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa
+52:dbbbc.bbebb.bbbbb.bbdbb.cbbbe,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa
+52:bbbbc.bbbbd.bbabb.beaeb.cdbbb,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aabaa.aabaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa
+42:bbbb.baab.baab.baad,baac.baab.baab.bbbb,aaaa.aaaa.aaaa.aaaa,cbbb.eaaf.baab.bfbb,bbbb.bbbd.babb.baeb,baab.baab.baab.baab
+42:aaaa.aaaa.aaaa.aaaa,aafc.bbbb.faab.bbbb,aaaa.aaaa.aaaa.aaaa,cebd.bbba.bbbd.bbbe,aaaa.aaaa.aaaa.aaaa,ghbb.babb.bghb.bbbb
+42:bbbb.beab.bbbb.baed,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,fbfc.bbbb.bgbb.bbhb,bbdc.bbgb.bhbb.babb
+42:caac.bbeb.bbgb.bbbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,bbbb.bbdb.bbeb.bbbb,bbbb.bbbb.bbgb.bbdb
+42:aaab.aaab.aaab.aaah,bbbe.bcbc.bbbe.bbbd,aaaa.aaaa.aaaa.aaaa,hbbf.bbbg.bgba.bbbf,aaad.aaab.aaab.aaab,aaaa.aaaa.aaaa.aaaa
+42:bbbb.bbbb.bbgb.ghbb,aabb.bbbb.bcbb.aadb,bcdb.baab.baab.ebbe,bbaa.bbbb.bbbb.bfaa,aaaa.bbbb.bbbb.aaaa,babb.faah.aaaa.aaaa
+42:gbbg.bbbf.bbbb.ebeb,aaab.aaab.aaab.aaab,aaaa.aaaa.aaaa.bbfc,baaa.baaa.baaa.daaa,aaaa.aaaa.aaaa.aaaa,cdbb.aaaa.aaaa.aaaa
+42:cbbb.bbbb.bebb.dbbe,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.bbbb.bbbb.aaaa,bcbf.bfbg.bgbb.bbbd,aaaa.aaaa.aaaa.aaaa
+42:aaaa.abfe.abbb.abba,acfa.abba.abba.abba,aaaa.aaaa.aaaa.aaaa,adba.aeba.abba.abba,aaaa.aaaa.dbbc.abba,bbbb.baab.baab.bbbb
+42:aaaa.aaaa.aaaa.aaaa,bbbb.bbfb.bbbb.befe,bahb.baab.baab.bdcb,gbdb.abbb.abbb.gbbb,ibbb.bbih.bbbc.bbbb,aaaa.aaaa.aaaa.aaaa
+42:abbh.abaa.bhbb.bbba,bbdb.bbbb.bbbb.bbbg,beda.baaa.eaaa.bbca,aaaa.aaaf.faab.aaaa,cbbb.bbbb.bbbb.gbbb,aaaa.aaaa.aaaa.aaaa
+42:aaaa.aaaa.bbda.bbbb,aaaa.aaaa.acbb.abbe,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.adbb.agbg,aaaa.aaaa.bbca.ebba,fbfb.bbab.bbbb.bbbb
+42:bbbb.bbbb.aaab.aaah,bbbe.bbbb.bbaa.bbbd,baab.baab.baab.baab,bbbb.bgab.bbab.fbgf,bbdc.bbeb.bbhb.cbbb,aaaa.aaaa.aaaa.aaaa
+42:gbbd.bbbb.gfeb.dbbb,aabb.aabb.aabb.aabf,aaaa.aaaa.caac.bbbb,bbaa.bbaa.bbaa.bbaa,aaaa.aaaa.aaaa.aaaa,ebbb.bbbb.aaaa.aaaa
+42:bbbb.babd.babb.bbbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,bbbb.ebed.bbbc.bbbf,aaaa.aaaa.aaaa.aaaa,bbhg.bbbb.bbhg.cbfa
+42:aaaa.gced.bbbb.bbbb,aaaa.aaaf.aaab.aabb,aaaa.aaaa.aaaa.aaaa,aaaa.bbaa.edaa.bcaa,aaaa.aaaa.aaaa.aaaa,bbbb.bbfg.aaaa.aaaa
+42:bbbc.bfbb.bbbb.egbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,bbbb.bedb.bbbb.gfdc,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa
+42:aaad.faag.daab.caac,fbbb.bbeb.bbbb.bbbb,aaaa.aaaa.aaaa.aaaa,bbbb.aaaa.bbbb.bbbb,bebb.bbbb.bgbb.bbbb,aaaa.aaaa.aaaa.aaaa
+42:bbbb.fbhb.bbah.dbbb,fbbb.gbbg.bbbb.caaa,aaaa.aaaa.aaaa.aaaa,bbbc.bbbb.bbed.beaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa
+42:bbbb.ebbb.bbac.dcbb,aaaa.aaaa.aaaa.aaaa,faad.baab.baab.bfeb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa
+42:bhaa.baaa.baaa.aaaa,bedb.bbbb.bbfb.gbgb,bbaa.baaa.baaa.bcaa,aaaa.aaaa.aaaa.aaaa,aade.aabb.aabb.aabb,bbaa.fbaa.bhaa.bcaa
+42:aaaa.aaaa.aaaa.aaaa,bbdc.bbbb.bbae.dbbb,aaaa.aaaa.aaaa.aaaa,aafc.bbbb.bbeb.fbbb,aaaa.aaaa.aaaa.aaaa,aaaa.bbbb.bbbb.aaaa
+42:aaaa.aaaa.bbfg.dbbb,aaaa.aaaa.cbbb.bbbe,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaab.bbbb,aaaa.aaaa.bbbg.bbbf,bbbb.bcdb.bbbb.bbeb
+42:gbbb.bfbe.bbbb.gbbf,aaab.aaab.aaab.aaad,bbbb.baab.caac.bbeb,aaaa.aaaa.baaa.daaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa
+42:ebbb.fbbb.babd.bfbb,aaab.aaab.aaab.aaae,aaaa.aaaa.caac.bbdb,baaa.baaa.baaa.baaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa
+42:bbbb.bbbb.bdae.cebb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,bbaa.bbaa.bbaa.dcaa
+42:bbbb.bedb.bbbb.bbbb,aaaa.aaaa.aabb.aaba,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,eabb.bcdc.aaaa.aaaa
+42:bbba.fbda.cbba.bafa,bbbb.babb.bcbd.ebbe,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,baaa.baaa.baaa.baaa

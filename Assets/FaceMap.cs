@@ -5,9 +5,9 @@ using System.Collections.Generic;
 public class FaceMap
 {
 	public bool activeFace;
-	public char[,] gridArray;
+	public int[,] gridArray;
 
-	public FaceMap(char[,] newGrid) {
+	public FaceMap(int[,] newGrid) {
 		gridArray = newGrid;
 	}
 }

@@ -43,11 +43,11 @@ public class Tile : MonoBehaviour
 			this.isActive = (this.tileType != 0);
 			GetComponent<Renderer>().material.SetColor("_EmissionColor", managerCall.tileColorArray[this.tileType]);
 
-			if (this.tileType > 1 && this.tileType < 10) {
+			if (this.tileType > 1 && this.tileType < 26) {
 				isGate = true;
 				hardColor = this.tileType;
-			} else if (this.tileType > 9) {
-				hardColor = this.tileType - 8;
+			} else if (this.tileType > 25) {
+				hardColor = this.tileType - 24;
 			} else {
 				hardColor = 0;
 			}
@@ -65,7 +65,7 @@ public class Tile : MonoBehaviour
 		foreach (Tile anT in activeNeighbors) {
 			if (!managerCall.pingedTiles.Contains (anT)) {
 				if (anT.isGate) {
-					managerCall.linkStateArray [tileType - 8] = 1;
+					managerCall.linkStateArray [tileType - 24] = 1;
 					foreach (Tile alT in managerCall.pingedTiles) {
 						alT.contiguousLink = true;
 					}
@@ -98,7 +98,7 @@ public class Tile : MonoBehaviour
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 0];
 		}
 		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-8 || parsedTile.tileType == tileType+8)) {
+			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-24 || parsedTile.tileType == tileType+24)) {
 				activeNeighbors.Add (parsedTile);
 				//Debug.Log ("Left active neighbor");
 			}
@@ -123,7 +123,7 @@ public class Tile : MonoBehaviour
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 2];
 		}
 		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-8 || parsedTile.tileType == tileType+8)) {
+			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-24 || parsedTile.tileType == tileType+24)) {
 				activeNeighbors.Add (parsedTile);
 				//Debug.Log("Right active neighbor");
 			}
@@ -150,7 +150,7 @@ public class Tile : MonoBehaviour
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 1];
 		}
 		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-8 || parsedTile.tileType == tileType+8)) {
+			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-24 || parsedTile.tileType == tileType+24)) {
 				activeNeighbors.Add (parsedTile);
 				//Debug.Log("Top active neighbor");
 			}
@@ -180,7 +180,8 @@ public class Tile : MonoBehaviour
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 3];
 		}
 		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType > 1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType - 8 || parsedTile.tileType == tileType+8)) {
+			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType > 1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType - 24
+                || parsedTile.tileType == tileType+24)) {
 				activeNeighbors.Add (parsedTile);
 				//Debug.Log ("Bottom active neighbor");
 			}

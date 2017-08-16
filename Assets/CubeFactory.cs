@@ -43,7 +43,7 @@ public class CubeFactory : MonoBehaviour {
 
 				GameObject newTile = Instantiate(tilePrefab, new Vector3 ((x * (spacer + scaleNum))+scaleNum*.5f, (y * (spacer + scaleNum))+scaleNum*.5f, 0f), Quaternion.identity) as GameObject;
 				newTile.transform.SetParent(GameObject.Find("CubeFace"+faceNum.ToString()).transform, false);
-				newTile.GetComponent<Tile>().tileType = (int)char.GetNumericValue(faceList[faceNum - 1].gridArray[y,x]);
+				newTile.GetComponent<Tile>().tileType = faceList[faceNum - 1].gridArray[y,x];
 
 				managerCall.tileObjArray.Add (newTile);
 				managerCall.tileArray.Add(newTile.GetComponent<Tile>());
