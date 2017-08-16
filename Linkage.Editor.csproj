@@ -264,6 +264,7 @@
     <None Include="Assets\Sci-Fi Interior Pack\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <None Include="Assets\Sci-Fi Interior Pack\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
     <None Include="Assets\Sci-Fi Interior Pack\_Help\ReadMe.txt" />
+    <None Include="Assets\StreamingAssets\emailInbox.txt" />
     <None Include="Assets\StreamingAssets\solutions.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

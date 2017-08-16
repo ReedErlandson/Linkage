@@ -49,6 +49,7 @@ public class CsvReader : MonoBehaviour
 				for (int l = 0; l < readLineArray.Length; l++) { //for each row
 					char[] readLineCharray = readLineArray[l].ToCharArray();
 					for (int c = 0; c < readLineCharray.Length; c++) {
+                        //print(readLineCharray[c]);
 						charrayFuel [l, c] = readLineCharray[c];
 					}
 				}

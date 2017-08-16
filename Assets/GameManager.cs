@@ -118,10 +118,6 @@ public class GameManager : MonoBehaviour
 
 		audioSrc = GetComponent<AudioSource>();
 
-		//load
-		levelTracker = new List<bool[]>();
-		SaveLoad.Load(levelTracker);
-
         //solutions
         solutionArray = new List<SolutionMap>();
 
@@ -129,7 +125,7 @@ public class GameManager : MonoBehaviour
 		ceilingLight = GameObject.Find("CeilingLight").GetComponent<Light>();
 
 		//path biz
-		levelPath = System.IO.Path.Combine(Application.streamingAssetsPath, "csv1.csv");
+		levelPath = System.IO.Path.Combine(Application.streamingAssetsPath, "csv2.csv");
 		solutionPath = System.IO.Path.Combine(Application.streamingAssetsPath, "solutions.txt");
 
 		char[,] LFCharray = { { '0', '0', '0', '0' }, { '0', '0', '0', '0' }, { '0', '0', '0', '0' }, { '0', '0', '0', '0' } };
@@ -147,13 +143,14 @@ public class GameManager : MonoBehaviour
 		levelArray = new List<CubeMap>();
 		NodeArray = new List<List<CubeMap>>();
 
-        //updateLevelTracker();
-        //SaveLoad.Load(levelTracker);
 
         StartCoroutine("pathEnum");
 		StartCoroutine("solutionPathEnum");
-	}
 
+        //load
+        levelTracker = new List<bool[]>();
+        SaveLoad.Load(levelTracker);
+    }
 
 	// Update is called once per frame
 	void Update() {
@@ -163,6 +160,10 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) {
             editMode = !editMode;
             print("edit mode " + (editMode ? "ON" : "OFF"));
+        }
+
+        if (Input.GetKeyDown(KeyCode.R)) {
+            resetLevelTracker();
         }
 
         if (editMode)
@@ -178,12 +179,8 @@ public class GameManager : MonoBehaviour
 			WWW www = new WWW(levelPath);
 			yield return www;
 			result = www.text;
-			//csvrCall.readCSV(result);
-		}
-		else
-		{
+		} else {
 			result = System.IO.File.ReadAllText(levelPath);
-			//csvrCall.readCSV(result);
 		}
         csvrCall.readCSV(result);
     }
@@ -235,6 +232,10 @@ public class GameManager : MonoBehaviour
             paintDebug = true;
         }
 
+        if (editMode && Input.GetKeyDown(KeyCode.S)) {
+            printSolutions();
+        }
+
         if (editMode && Input.GetKeyDown(KeyCode.M)) {
 			string levelCode = "";
 			List<Tile> tileSortList = new List<Tile> ();
@@ -245,15 +246,19 @@ public class GameManager : MonoBehaviour
 				//}
 			}
 
-			//tileSortList = tileSortList.OrderByDescending (x => x.fNo).ToList();
+            //tileSortList = tileSortList.OrderByDescending (x => x.fNo).ToList();
+
+            //TODO: JOSE this needs to become more flexible to accomedate for more faces
+            int numFaces = NodeArray[currentNode][currentLevel].dimension;
+            print(numFaces);
 
 			for (int i = 0; i < tileSortList.Count; i++) {
 				levelCode += tileSortList [i].tileType.ToString ();
 
-				if (i!=0 && (i+1) % 16 == 0) {
+				if (i!=0 && (i+1) % Mathf.Pow(numFaces, 2) == 0) {
 					levelCode += ",";
 				}
-				else if (i!=0 && i != tileSortList.Count - 1 && (i+1)%4 == 0) {
+				else if (i!=0 && i != tileSortList.Count - 1 && (i+1)% numFaces == 0) {
 					levelCode += ".";
 				}
 
@@ -377,7 +382,7 @@ public class GameManager : MonoBehaviour
 		if (GvrController.ClickButton == true) { 		//touch pad platformSpec
 		#else
 		if (Input.GetMouseButton(0)) { 		//editor mouse alt
-		#endif
+		#endif           
 			clickTarget = cursorCall.focusedTile;
 			//ui check
 			#if UNITY_ANDROID
@@ -388,35 +393,33 @@ public class GameManager : MonoBehaviour
 				levelJanitor ();
 			}
 
-            if (clickTarget == null)
-            {
-#if UNITY_ANDROID
-				if (cursorCall.focusedGM.name == "Compy" && GvrController.ClickButtonDown) {
-#else
+            if (clickTarget == null) {
 
-                // if you click the globe podium, open up pack select
-                if (cursorCall.focusedGM != null) // JOSE: something I added, just so it doesnt throw an error if the focusedGM is deleted
-                {
-                    if (cursorCall.focusedGM.name == "Compy" && Input.GetMouseButtonDown(0))
-                    {
+#if UNITY_ANDROID
+                if (GvrController.ClickButtonDown)
+#else
+                if(Input.GetMouseButtonDown(0))
 #endif
-                        if (!activeCubeFlag)
-                        {
+                {
+                    // if you click the globe podium, open up pack select // JOSE: something I added, just so it doesnt throw an error if the focusedGM is deleted
+                    if (cursorCall.focusedGM != null) {
+                        if (cursorCall.focusedGM.name == "Compy" && !activeCubeFlag) {
                             packSelectDraw();
                         }
-                    }
-#if UNITY_ANDROID
-				if (cursorCall.focusedGM.name == "Bill" && nodeSelect && cursorCall.focusedGM.GetComponentInParent<nodeBillScript>().isActive == true && GvrController.ClickButtonDown) {
-#else
 
-                    // if its a pack. open up level select
-                    if (cursorCall.focusedGM.name == "Bill" && nodeSelect && cursorCall.focusedGM.GetComponentInParent<nodeBillScript>().isActive == true && Input.GetMouseButtonDown(0))
-                    {
-#endif
-                        levelSelectDraw();
+                        // if its a pack. open up level select
+                        if (cursorCall.focusedGM.name == "Bill" && nodeSelect && cursorCall.focusedGM.GetComponentInParent<nodeBillScript>().isActive == true) {
+                            levelSelectDraw();
+                        }
+
+                        // if you click the globe podium, open up pack select
+                        if (cursorCall.focusedGM.GetComponent<VRUIButton>() != null) {
+                            cursorCall.focusedGM.GetComponent<VRUIButton>().onUIDown.Invoke();
+                        }
                     }
                 }
             }
+
             else if (clickTarget.isActive || editMode) {
                 /*
                 //Reed's code
@@ -475,11 +478,11 @@ public class GameManager : MonoBehaviour
             }
 		}
 
-		#if UNITY_ANDROID
+#if UNITY_ANDROID
 		if (GvrController.AppButtonDown && !levelCompleted) { //right click clear cube
-		#else
+#else
 		if (Input.GetMouseButtonDown (1) && !levelCompleted) { //right click clear cube
-		#endif
+#endif
 			paintSlug = 1;
 			remoteLR.material.SetColor("_EmissionColor", tileColorArray[1]);
 			foreach (Tile tileTarget in tileArray) {
@@ -490,11 +493,11 @@ public class GameManager : MonoBehaviour
 			}
 		}
 
-		#if UNITY_ANDROID
+#if UNITY_ANDROID
 		if (GvrController.ClickButtonUp) {
-		#else
+#else
 		if (Input.GetMouseButtonUp (0)) {
-		#endif
+#endif
 			hintReady = false;
 		}
 	}
@@ -503,7 +506,6 @@ public class GameManager : MonoBehaviour
 		paintSlug = clickTarget.tileType+8;
 		remoteLR.material.SetColor("_EmissionColor", tileColorArray[clickTarget.tileType + 8]);
 		audioSrc.PlayOneShot(gateClick, 0.8F);
-
 	}
 
 	void updateClickedTile(Tile tilePointer) {
@@ -544,9 +546,9 @@ public class GameManager : MonoBehaviour
 	void levelBookend() {
 		levelCompleted = true;
 
-		//save level win. Need to Figure this out...
-		//levelTracker[currentNode][currentLevel+1]=true;
-		//SaveLoad.Save(levelTracker);
+        //save level win. Need to Figure this out...
+		levelTracker[currentNode][currentLevel+1]=true;
+		SaveLoad.Save(levelTracker);
 
 		foreach (Tile eaTile in tileArray) {
 			eaTile.isActive = false;
@@ -652,21 +654,59 @@ public class GameManager : MonoBehaviour
         levelCompleted = false;
     }
 
-    public void updateLevelTracker() {
-        List<bool[]> oldLevelTracker = new List<bool[]>(NodeArray.Count);
-        for (int i = 0; i < oldLevelTracker.Count; i++) {
-            if (levelTracker.Count > i) {
-                oldLevelTracker[i] = (bool[])oldLevelTracker[i].Clone();
-            } else {
-                oldLevelTracker[i] = new bool[NodeArray[currentNode].Count];
+    public void resetLevelTracker() {
+        levelTracker = new List<bool[]>();
+        for (int i = 0; i < NodeArray.Count; i++) {
+            if (NodeArray[i].Count > 0) {
+                levelTracker.Add(new bool[NodeArray[i].Count]);
             }
         }
-
         SaveLoad.Save(levelTracker);
+    }
+
+    // being able to update the level tracker's size without messing with the current tracker. Still is a work in progress
+    public void updateLevelTracker() {
+        for (int i = 0; i < NodeArray.Count; i++) {
+            if (i >= levelTracker.Count) {
+                levelTracker.Add(new bool[NodeArray[i].Count]);
+            } else {
+                
+            }
+        }
+        SaveLoad.Save(levelTracker);
+    }
+
+        public void printSolutions() {
+
+        string solution = "";
+        for (int i = 0; i < gateArray.Count; i++) {
+            solution += gateArray[i].tileType + ":";
+
+            bool firstOne = true;
+            for (int j = 0; j < tileArray.Count; j++) { //there is probably a waaaaaay better way of doing this. 
+                if (tileArray[j].tileType == gateArray[i].tileType + 8) {
+                    if (firstOne) {
+                        solution += "" + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;
+                        firstOne = false;
+                    }
+                    else {
+                        solution += "." + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;
+                    }
+                }
+            }
+            solution += ",";
+        }
+
+        print(solution);
     }
 
     public bool validLevel(int currentNode, int currentLevel) {
         return NodeArray.Count > currentNode && NodeArray[currentNode].Count > currentLevel;
+    }
+
+    public bool checkLevelStatus(int currentNode, int currentLevel) {
+        return levelTracker[currentNode][currentLevel];
+        //return false;
     }
 
 }

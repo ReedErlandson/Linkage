@@ -71,19 +71,30 @@ public class CubeFactory : MonoBehaviour {
                 // Jose's setup. allows for up to 32 levels. Can make more flexible in the future
                 if (isMenu) {                    
                     int index = (size * size - size + 1) - y * 4 + x - 1;
-                    index += faceNum == 4 ? 16 : 0;
+                    if (faceNum == 4) {
+                        index += 16;
+                    }
+                    else if (faceNum == 5) {
+                        index += 32;
+                    }
                     if (index == 0 && faceNum == 1) {
                         newTile.GetComponent<Tile>().index = index;
                         GameObject newGuiNum = Instantiate(guiNumPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                         newGuiNum.transform.localPosition = new Vector3(0, 0, -0.01f);
                         newGuiNum.transform.SetParent(newTile.transform, false);
                         newGuiNum.GetComponent<TextMesh>().text = "<--";
-                    } else  if ((faceNum == 1 || faceNum == 4) && managerCall.validLevel(managerCall.currentNode, index)) {
+                    } else  if ((faceNum == 1 || faceNum == 4 || faceNum == 5) && managerCall.validLevel(managerCall.currentNode, index)) {
                         newTile.GetComponent<Tile>().index = index;
                         GameObject newGuiNum = Instantiate(guiNumPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                         newGuiNum.transform.localPosition = new Vector3(0, 0, -0.01f);
                         newGuiNum.transform.SetParent(newTile.transform, false);
                         newGuiNum.GetComponent<TextMesh>().text = newTile.GetComponent<Tile>().index.ToString();
+
+                        if (managerCall.checkLevelStatus(managerCall.currentNode, index)) {
+                            newTile.GetComponent<Tile>().tileType = 2;
+                            newTile.GetComponent<Tile>().updateFlag = true;
+                        }
+
                     } else {
                         newTile.GetComponent<Tile>().tileType = 0;
                         newTile.GetComponent<Tile>().updateFlag = true;
