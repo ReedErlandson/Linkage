@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
-public class Tile : MonoBehaviour
+public class Tile : MonoBehaviour, IComparable<Tile>
 	{
 	//linkage
 	GameManager managerCall;
@@ -199,4 +200,7 @@ public class Tile : MonoBehaviour
 		transform.localScale = new Vector3 (CubeFactory.scaleNum,CubeFactory.scaleNum,zScale);
 	}
 
+    public int CompareTo(Tile other) {
+        return this.tileType - other.tileType;
+    }
 }

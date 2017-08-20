@@ -25,8 +25,7 @@ public class GameManager : MonoBehaviour
     AudioSource audioSrc;
 
 
-    //definitions
-    
+    //definitions 
     public List<CubeMap> levelArray;
 	public List<List<CubeMap>> NodeArray;
 	char[,] LFCharray;
@@ -70,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     //levels
     [Header("Level Manager")]
-    public int nodeCount = 2;
+    public int nodeCount = 10;
 	public int currentLevel = 0;
 	public int currentNode = 0;
 	public int levelColorCount = 0;
@@ -84,6 +83,7 @@ public class GameManager : MonoBehaviour
     //file path stuff
     [Header("File pathing")]
     public string levelPath;
+    public string customLevelPath;
 	public string result = "";
 	public string solutionPath;
 	public string solutionResult = "";
@@ -97,6 +97,9 @@ public class GameManager : MonoBehaviour
 
 	//Debug vars
 	bool activeCubeFlag = false;
+
+    //Tile editor vars
+    CubeMap verifyLevel;
 
 	// Use this for initialization
 	void Start()
@@ -126,7 +129,8 @@ public class GameManager : MonoBehaviour
 
 		//path biz
 		levelPath = System.IO.Path.Combine(Application.streamingAssetsPath, "csv1.csv");
-		solutionPath = System.IO.Path.Combine(Application.streamingAssetsPath, "solutions.txt");
+        customLevelPath = System.IO.Path.Combine(Application.streamingAssetsPath, "csv2.csv");
+        solutionPath = System.IO.Path.Combine(Application.streamingAssetsPath, "solutions.txt");
 
 		int[,] LFCharray = { { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 }, { 0, 0, 0, 0 } };
 		lockedFace = new FaceMap(LFCharray);
@@ -145,7 +149,7 @@ public class GameManager : MonoBehaviour
 
 
         StartCoroutine("pathEnum");
-		StartCoroutine("solutionPathEnum");
+		//StartCoroutine("solutionPathEnum");
 
         //load
         levelTracker = new List<bool[]>();
@@ -163,19 +167,24 @@ public class GameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.R)) {
+            verifyLevel = null;
             resetLevelTracker();
         }
 
-        if (editMode)
-		    toolAudit ();
+        if (Input.GetKeyDown(KeyCode.Backspace)) { // going back to the level select TODO: need to make it so you can only do this from a level
+            levelSelectDraw();
+        }
+
+        if (editMode) {
+            toolAudit();
+        }
 	}
 
 	//path ienumerator
 	IEnumerator pathEnum()
 	{
         string result = "";
-		if (levelPath.Contains("://"))
-		{
+		if (levelPath.Contains("://")) {
 			WWW www = new WWW(levelPath);
 			yield return www;
 			result = www.text;
@@ -183,6 +192,9 @@ public class GameManager : MonoBehaviour
 			result = System.IO.File.ReadAllText(levelPath);
 		}
         csvrCall.readCSV(result);
+
+        // to open up level builder levelPack
+        csvrCall.readCSV(System.IO.File.ReadAllText(customLevelPath));
     }
 
 	//solution path ienumerator
@@ -199,7 +211,7 @@ public class GameManager : MonoBehaviour
 			solutionResult = System.IO.File.ReadAllText(solutionPath);
 			//txtCall.readTXT(solutionResult, solutionArray);
 		}
-        txtCall.readTXT(solutionResult, solutionArray);
+        //txtCall.readTXT(solutionResult, solutionArray);
     }
 
     void toolAudit(){
@@ -218,34 +230,13 @@ public class GameManager : MonoBehaviour
         }
 
         if (editMode && Input.GetKeyDown(KeyCode.M)) {
-			string levelCode = "";
-			List<Tile> tileSortList = new List<Tile> ();
+            string levelCode = printLevelString(false);
+            editMode = false;
+            print("verifyLevel");
 
-			foreach (GameObject aTile in tileObjArray) {
-				//if (aTile.GetComponent<Tile> ().fNo <= 3) {
-					tileSortList.Add (aTile.GetComponent<Tile> ());
-				//}
-			}
-
-            //tileSortList = tileSortList.OrderByDescending (x => x.fNo).ToList();
-
-            //TODO: JOSE this needs to become more flexible to accomedate for more faces
-            int numFaces = NodeArray[currentNode][currentLevel].dimension;
-            print(numFaces);
-
-			for (int i = 0; i < tileSortList.Count; i++) {
-				levelCode += (char) (tileSortList [i].tileType + 97);
-
-				if (i!=0 && (i+1) % Mathf.Pow(numFaces, 2) == 0) {
-					levelCode += ",";
-				}
-				else if (i!=0 && i != tileSortList.Count - 1 && (i+1)% numFaces == 0) {
-					levelCode += ".";
-				}
-
-			}
-
-			Debug.Log (levelCode);
+            CubeMap newMap = csvrCall.constructCubeMatrix(levelCode, levelCode.Split('.')[1].Length);
+            verifyLevel = newMap;
+            levelJanitor(newMap);
 		}
 	}
 
@@ -292,14 +283,16 @@ public class GameManager : MonoBehaviour
 		int indexTarget;
         
 		if (isLeft) {
-			indexTarget = currentNode+3;
+            indexTarget = currentNode + nodeKits.Count - 1;
+            if (indexTarget < 0)
+                indexTarget += nodeKits.Count;
             indexTarget %= nodeKits.Count;
 			GameObject newNodeBill4 = Instantiate(nodeKits[indexTarget], positions[3], Quaternion.Euler(0, -180, 0)) as GameObject;
 			activeKits.Add(newNodeBill4);
             Destroy(activeKits[0]);
         } else {
-			indexTarget = currentNode-1;
 
+            indexTarget = currentNode+3;
             if (indexTarget < 0)
                 indexTarget += nodeKits.Count;
 
@@ -441,7 +434,8 @@ public class GameManager : MonoBehaviour
                             hintReady = true;
                         }
                         if (Time.time >= pressTime && hintReady == true) {
-                            paintHint(clickTarget.tileType, currentLevel);
+                            print(clickTarget.tileType);
+                            paintHint(clickTarget.tileType);
                             hintReady = false;
                         }
                     }
@@ -524,14 +518,19 @@ public class GameManager : MonoBehaviour
 
 	void levelBookend() {
 		levelCompleted = true;
-        printSolutions();
-        //save level win. Need to Figure this out...
-        levelTracker[currentNode][currentLevel+1]=true;
-		SaveLoad.Save(levelTracker);
+
+        if (verifyLevel != null) {
+            printLevelString(true);
+        } else {
+            //save level win. Need to Figure this out...
+            levelTracker[currentNode][currentLevel] = true;
+            SaveLoad.Save(levelTracker);
+        }
 
 		foreach (Tile eaTile in tileArray) {
 			eaTile.isActive = false;
 		}
+         
 		GameObject newBoard = Instantiate(uiBoard, new Vector3 (0,0,0), Quaternion.identity) as GameObject;
 		GameObject newHeader = Instantiate(uiHeader, new Vector3 (0,0,0), Quaternion.identity) as GameObject;
 		uiObjects.Add (newHeader);
@@ -549,19 +548,43 @@ public class GameManager : MonoBehaviour
 
     // clears old level and opens new level
 	void levelJanitor() {
-		currentLevel += 1;
+        currentLevel += 1;
+        levelColorCount = 0;
+        clearTiles();
+
+        if (verifyLevel != null) {
+            print("level verified: new level added");
+            NodeArray[currentNode].Add(verifyLevel);
+            resetLevelTracker(); // this resets the whole level matrix grid. Id want to only update the size of the current one somewhere down the line
+            levelSelectDraw();
+            verifyLevel = null;
+        } else {
+            //load new level
+            factoryCall.drawCube(NodeArray[currentNode][currentLevel], false);
+            gateArray.Sort();
+            ceilingLight.color = Color.white;
+            ceilingLight.intensity = 1.3f;
+            activeCubeFlag = true;
+        }
+	}
+
+    void levelJanitor(CubeMap newCube) {
+        currentLevel += 1;
 		levelColorCount = 0;
         clearTiles();
 
         //load new level
-        factoryCall.drawCube (NodeArray[currentNode][currentLevel], false);
-		ceilingLight.color = Color.white;
-		ceilingLight.intensity = 1.3f;
-		activeCubeFlag = true;	
-	}
+        factoryCall.drawCube(newCube, false);
+        gateArray.Sort();
+        ceilingLight.color = Color.white;
+        ceilingLight.intensity = 1.3f;
+        activeCubeFlag = true;
+    }
 
-	void paintHint(int colorPointer, int levelNo) {
-		foreach (int coOrdSet in solutionArray[levelNo].coOrdMap[colorPointer-2].coordinates) {
+	void paintHint(int colorPointer) {
+        //Solution = 
+		foreach (int coOrdSet in NodeArray[currentNode][currentLevel].solution.coOrdMap[colorPointer-2].coordinates) {
+        //for(int i = 0; i < )
 			//Debug.Log (coOrdSet);
 			string coOrdSetString = coOrdSet.ToString();
 			int fPoint = (int)char.GetNumericValue (coOrdSetString [0]);
@@ -582,14 +605,15 @@ public class GameManager : MonoBehaviour
         Destroy(computron);
         activeKits.Clear();
         clearTiles();
+        currentNode = 0;
         GameObject newNodeBill = Instantiate(nodeKits[0], new Vector3 (-10,10,-5), Quaternion.identity) as GameObject;
 		GameObject newNodeBill2 = Instantiate (nodeKits[1], new Vector3 (0, 10, 5), Quaternion.identity) as GameObject;
 		GameObject newNodeBill3 = Instantiate(nodeKits[2], new Vector3(10, 10, -5), Quaternion.identity) as GameObject;
 		newNodeBill.transform.Rotate(0, -90, 0);
 		newNodeBill3.transform.Rotate (0, 90, 0);
-		activeKits.Add (newNodeBill);
+		activeKits.Add (newNodeBill3);
 		activeKits.Add (newNodeBill2);
-		activeKits.Add(newNodeBill3);
+		activeKits.Add(newNodeBill);
 		newNodeBill2.GetComponent<nodeBillScript> ().isActive = true;
 		nodeSelect = true;
     }
@@ -606,6 +630,11 @@ public class GameManager : MonoBehaviour
 		ceilingLight.intensity = 1.3f;
 		nodeSelect = false;
 		activeCubeFlag = true;
+
+        foreach (GameObject uiObjects in tileIconArray) { // a bit of a sloppy way to get rid of the ui in level select but it works
+            Destroy(uiObjects);
+        }
+        tileIconArray.Clear();
 	}
 
     public void clearTiles() {
@@ -654,40 +683,104 @@ public class GameManager : MonoBehaviour
         SaveLoad.Save(levelTracker);
     }
 
-    public void printSolutions() {
-
-        string solution = "";
-        for (int i = 0; i < gateArray.Count; i++) {
-            solution += gateArray[i].tileType + ":";
-
-            bool firstOne = true;
-            for (int j = 0; j < tileArray.Count; j++) { //there is probably a waaaaaay better way of doing this. 
-                if (tileArray[j].tileType == gateArray[i].tileType + 24) {
-                    if (firstOne) {
-                        solution += "" + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;
-                        firstOne = false;
-                    }
-                    else {
-                        solution += "." + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;
-                    }
-                }
-            }
-            solution += ",";
+    public string printLevelString(bool export) {
+        int numFaces = 0;
+        if (verifyLevel != null) {
+            numFaces = verifyLevel.dimension;
+        } else {
+            numFaces = NodeArray[currentNode][currentLevel].dimension;
         }
 
-        StreamWriter writer = new StreamWriter(solutionPath, true);
-        writer.WriteLine("\n" + solution);
-        writer.Close();
+       
+        string levelCode = numFaces + "" + currentNode + ":";
+        List<Tile> tileSortList = new List<Tile>();
+
+        foreach (GameObject aTile in tileObjArray) {
+            //if (aTile.GetComponent<Tile> ().fNo <= 3) {
+            tileSortList.Add(aTile.GetComponent<Tile>());
+            //}
+        }
+
+        //tileSortList = tileSortList.OrderByDescending (x => x.fNo).ToList();
+
+        for (int i = 0; i < tileSortList.Count; i++) {
+            if (tileSortList[i].tileType < 25)
+            {
+                levelCode += (char)(tileSortList[i].tileType + 97);
+            }
+            else
+            {
+                levelCode += 'b';
+            }
+
+            if (i != 0 && (i + 1) % Mathf.Pow(numFaces, 2) == 0 && i < tileSortList.Count - 1)
+            {
+                levelCode += ",";
+            }
+            else if (i != 0 && i != tileSortList.Count - 1 && (i + 1) % numFaces == 0)
+            {
+                levelCode += ".";
+            }
+
+        }
+
+        // only export to csv if the level has a solution
+        if (export) {
+            levelCode += "|" + printSolutions();
+
+            StreamWriter writer = new StreamWriter(customLevelPath, true);
+            writer.WriteLine("\n" + levelCode);
+            writer.Close();
+        }
+
+        Debug.Log(levelCode);
+        return levelCode;
+    }
+
+    public string printSolutions() {
+
+        string solution = "";
+        bool firstOne = true;
+        for (int i = 0; i < gateArray.Count; i++) {
+            if (!firstOne) {
+                solution += ",";
+            }
+
+            firstOne = false;
+            solution += gateArray[i].tileType + ":" + printTileCoordinate(tileArray, i);
+        }
+
+        //StreamWriter writer = new StreamWriter(solutionPath, true);
+        //writer.WriteLine("\n" + solution);
+        //writer.Close();
 
         print(solution);
+        return solution;
     }
 
-    public bool validLevel(int currentNode, int currentLevel) {
-        return NodeArray.Count > currentNode && NodeArray[currentNode].Count > currentLevel;
+    string printTileCoordinate(List<Tile> tileArray, int i) {
+        bool firstOne = true;
+        string solution = "";
+        for (int j = 0; j < tileArray.Count; j++) { //there is probably a waaaaaay better way of doing this. 
+            if (tileArray[j].tileType == gateArray[i].tileType + 24)  {
+                if (firstOne) {
+                    solution += "" + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;
+                    firstOne = false;
+                } else  {
+                    solution += "." + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;
+                }
+            }
+        }
+
+        return solution;
     }
 
-    public bool checkLevelStatus(int currentNode, int currentLevel) {
-        return levelTracker[currentNode][currentLevel];
+    public bool validLevel(int currentLevel) {
+        return NodeArray.Count > currentNode && NodeArray[currentNode].Count >= currentLevel;
+    }
+
+    public bool checkLevelStatus(int currentLevel) {
+        return levelTracker[currentNode][currentLevel - 1];
     }
 
 }

@@ -10,10 +10,6 @@ public class CsvReader : MonoBehaviour
 	GameManager managerCall;
 	CubeFactory factoryCall;
 
-	void Start () {
-
-	}
-
 	public void readCSV(string fedCSV) {
 		managerCall = GetComponent<GameManager>();
 		factoryCall = GetComponent<CubeFactory>();
@@ -22,8 +18,12 @@ public class CsvReader : MonoBehaviour
 		string inp_ln;
 		List<List<CubeMap>> tempNodeList = new List<List<CubeMap>> ();
 
-		while((inp_ln=csvStringReader.ReadLine())!=null){
+        for (int n = 0; n < managerCall.nodeCount; n++) {
+            List<CubeMap> newLevelPack = new List<CubeMap>();
+            tempNodeList.Add(newLevelPack);
+        }
 
+        while ((inp_ln=csvStringReader.ReadLine())!=null){
             // Accessibility
             inp_ln = inp_ln.Split('-')[0]; // comments marked by '-' are ignored by thing
 
@@ -31,45 +31,74 @@ public class CsvReader : MonoBehaviour
                 continue;
             }
 
-			for (int n = 0; n < managerCall.nodeCount; n++) {
-				List<CubeMap> newList = new List<CubeMap> ();
-				tempNodeList.Add (newList);
-			}
+            //moved out of loop so it only happens once
+            //for (int n = 0; n < managerCall.nodeCount; n++)
+            // {
+            //    List<CubeMap> newList = new List<CubeMap>();
+            //    tempNodeList.Add(newList);
+            //}
 
-			int dim = (int)char.GetNumericValue (inp_ln [0]);
-
+            int dim = (int)char.GetNumericValue (inp_ln [0]);
 			int nodeTarget = (int)char.GetNumericValue (inp_ln [1]);
-			inp_ln = inp_ln.Substring(3);
-			List<FaceMap> newFML = new List<FaceMap> ();
-			string[] readFaceArray = inp_ln.Split (',');
-
-			for (int f = 0; f < readFaceArray.Length; f++) { //for each face
-				string[]readLineArray = readFaceArray[f].Split('.');
-				int[,] charrayFuel = new int[dim,dim];
-
-				for (int l = 0; l < readLineArray.Length; l++) { //for each row
-					char[] readLineCharray = readLineArray[l].ToCharArray();
-					for (int c = 0; c < readLineCharray.Length; c++) {
-						charrayFuel [l, c] = (int)readLineCharray[c] - 97;
-					}
-				}
-				FaceMap newFM = new FaceMap (charrayFuel);
-				newFML.Add (newFM);
-
-			}
-
-			int fillVar = newFML.Count;
-
-			for (int n = 0; n < 6-fillVar; n++) {
-				newFML.Add(managerCall.lockedFace);
-			}
-
-			CubeMap newCube = new CubeMap (dim,readFaceArray.Length,newFML);
-			tempNodeList[nodeTarget].Add(newCube);
+           
+			tempNodeList[nodeTarget].Add(constructCubeMatrix(inp_ln, dim));
 		}
-		foreach (List<CubeMap> cubeMapList in tempNodeList) {
-			managerCall.NodeArray.Add (cubeMapList);
-		}
-	}		
+
+        for (int i = 0; i < tempNodeList.Count; i++) {
+            if (tempNodeList[i].Count != 0) {
+                if (managerCall.NodeArray.Count > i) {
+                    managerCall.NodeArray[i] = managerCall.NodeArray[i].Concat(tempNodeList[i]).ToList();
+                } else {
+                    managerCall.NodeArray.Add(tempNodeList[i]);
+                }
+            }
+        }
+
+		//foreach (List<CubeMap> cubeMapList in tempNodeList) {
+		//	managerCall.NodeArray.Add (cubeMapList);
+		//}
+	}
+
+    public CubeMap constructCubeMatrix(string inp_ln, int dim) {
+        SolutionMap solution = null;
+
+        if (inp_ln.Split('|').Length == 2) {
+            string solutionString = inp_ln.Split('|')[1];
+            solution = TxtReader.instance.createSolution(solutionString);
+        }
+
+        inp_ln = inp_ln.Split('|')[0];
+        inp_ln = inp_ln.Substring(3);
+        List<FaceMap> newFML = new List<FaceMap>();
+        string[] readFaceArray = inp_ln.Split(',');
+
+        for (int f = 0; f < readFaceArray.Length; f++)
+        { //for each face
+            string[] readLineArray = readFaceArray[f].Split('.');
+            int[,] charrayFuel = new int[dim, dim];
+
+            for (int l = 0; l < readLineArray.Length; l++)
+            { //for each row
+                char[] readLineCharray = readLineArray[l].ToCharArray();
+                for (int c = 0; c < readLineCharray.Length; c++)
+                {
+                    charrayFuel[l, c] = (int)readLineCharray[c] - 97;
+                }
+            }
+            FaceMap newFM = new FaceMap(charrayFuel);
+            newFML.Add(newFM);
+        }
+
+
+        int fillVar = newFML.Count;
+
+        for (int n = 0; n < 6 - fillVar; n++)
+        {
+            newFML.Add(managerCall.lockedFace);
+        }
+
+        CubeMap newCube = new CubeMap(dim, readFaceArray.Length, newFML, solution);
+        return newCube;
+    }
 
 }

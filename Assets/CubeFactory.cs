@@ -83,16 +83,17 @@ public class CubeFactory : MonoBehaviour {
                         newGuiNum.transform.localPosition = new Vector3(0, 0, -0.01f);
                         newGuiNum.transform.SetParent(newTile.transform, false);
                         newGuiNum.GetComponent<TextMesh>().text = "<--";
-                    } else  if ((faceNum == 1 || faceNum == 4 || faceNum == 5) && managerCall.validLevel(managerCall.currentNode, index)) {
+                    } else  if ((faceNum == 1 || faceNum == 4 || faceNum == 5) && managerCall.validLevel(index)) {
                         newTile.GetComponent<Tile>().index = index;
                         GameObject newGuiNum = Instantiate(guiNumPrefab, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                         newGuiNum.transform.localPosition = new Vector3(0, 0, -0.01f);
                         newGuiNum.transform.SetParent(newTile.transform, false);
                         newGuiNum.GetComponent<TextMesh>().text = newTile.GetComponent<Tile>().index.ToString();
 
-                        if (managerCall.checkLevelStatus(managerCall.currentNode, index)) {
+                        if (managerCall.checkLevelStatus(index)) {
                             newTile.GetComponent<Tile>().tileType = 2;
                             newTile.GetComponent<Tile>().updateFlag = true;
+                            //Destroy(newTile.transform.GetChild(0).gameObject);
                         }
 
                     } else {
