@@ -92,8 +92,7 @@ public class CsvReader : MonoBehaviour
 
         int fillVar = newFML.Count;
 
-        for (int n = 0; n < 6 - fillVar; n++)
-        {
+        for (int n = 0; n < 6 - fillVar; n++) {
             newFML.Add(managerCall.lockedFace);
         }
 

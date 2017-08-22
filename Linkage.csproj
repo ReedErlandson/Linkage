@@ -99,6 +99,7 @@
     <Compile Include="Assets\CubeFactory.cs" />
     <Compile Include="Assets\CubeMap.cs" />
     <Compile Include="Assets\CursorScript.cs" />
+    <Compile Include="Assets\EditorModeManager.cs" />
     <Compile Include="Assets\EmailManager.cs" />
     <Compile Include="Assets\FaceMap.cs" />
     <Compile Include="Assets\GameManager.cs" />
@@ -232,8 +233,11 @@
     <Compile Include="Assets\VRUIButton.cs" />
     <Compile Include="Assets\emailContent.cs" />
     <Compile Include="Assets\inboxTab.cs" />
+    <Compile Include="Assets\jukeboxManager.cs" />
     <Compile Include="Assets\linkNodeScript.cs" />
     <Compile Include="Assets\nodeBillScript.cs" />
+    <Compile Include="Assets\notification.cs" />
+    <Compile Include="Assets\toggleLight.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\3Dfont.shader" />
@@ -324,6 +328,7 @@
     <None Include="Assets\Sci-Fi Interior Pack\Standard Assets\Effects\ToonShading\Shaders\ToonLit.shader" />
     <None Include="Assets\Sci-Fi Interior Pack\Standard Assets\Effects\ToonShading\Shaders\ToonLitOutline.shader" />
     <None Include="Assets\Sci-Fi Interior Pack\_Help\ReadMe.txt" />
+    <None Include="Assets\StreamingAssets\emailDatabase.txt" />
     <None Include="Assets\StreamingAssets\emailInbox.txt" />
     <None Include="Assets\StreamingAssets\solutions.txt" />
   </ItemGroup>

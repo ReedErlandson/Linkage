@@ -172,7 +172,20 @@ public class GameManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.Backspace)) { // going back to the level select TODO: need to make it so you can only do this from a level
-            levelSelectDraw();
+            if (verifyLevel != null) {
+                levelJanitor(verifyLevel);
+                editMode = true;
+                verifyLevel = null;
+                foreach (GameObject tileIcon in tileIconArray) {
+                    Destroy(tileIcon);
+                }
+                tileIconArray.Clear();
+
+            } else if (nodeSelect)  {
+                toggleComputerOn();
+            } else {
+                levelSelectDraw();
+            }
         }
 
         if (editMode) {
@@ -233,6 +246,7 @@ public class GameManager : MonoBehaviour
             string levelCode = printLevelString(false);
             editMode = false;
             print("verifyLevel");
+            notification.instance.updateNotification("verify level", 2);
 
             CubeMap newMap = csvrCall.constructCubeMatrix(levelCode, levelCode.Split('.')[1].Length);
             verifyLevel = newMap;
@@ -522,9 +536,10 @@ public class GameManager : MonoBehaviour
         if (verifyLevel != null) {
             printLevelString(true);
         } else {
-            //save level win. Need to Figure this out...
-            levelTracker[currentNode][currentLevel] = true;
-            SaveLoad.Save(levelTracker);
+            if (levelTracker[currentNode].Length > currentLevel) {
+                levelTracker[currentNode][currentLevel] = true;
+                SaveLoad.Save(levelTracker);
+            }
         }
 
 		foreach (Tile eaTile in tileArray) {
@@ -554,16 +569,26 @@ public class GameManager : MonoBehaviour
 
         if (verifyLevel != null) {
             print("level verified: new level added");
+            notification.instance.updateNotification("verify level", 2);
             NodeArray[currentNode].Add(verifyLevel);
             resetLevelTracker(); // this resets the whole level matrix grid. Id want to only update the size of the current one somewhere down the line
             levelSelectDraw();
             verifyLevel = null;
+        } else if (NodeArray[currentNode].Count <= currentLevel) {
+            levelSelectDraw();
         } else {
-            //load new level
-            factoryCall.drawCube(NodeArray[currentNode][currentLevel], false);
+            //open up level editor
+            if (currentLevel == 0 && currentNode == NodeArray.Count - 1) {
+                editMode = true;
+                EditorModeManager.instance.toggleDimMenu(true);
+            } else {
+                //load new level
+                factoryCall.drawCube(NodeArray[currentNode][currentLevel], false);
+            }
+
             gateArray.Sort();
-            ceilingLight.color = Color.white;
-            ceilingLight.intensity = 1.3f;
+            //ceilingLight.color = Color.white;
+            //ceilingLight.intensity = 1.3f;
             activeCubeFlag = true;
         }
 	}
@@ -576,8 +601,8 @@ public class GameManager : MonoBehaviour
         //load new level
         factoryCall.drawCube(newCube, false);
         gateArray.Sort();
-        ceilingLight.color = Color.white;
-        ceilingLight.intensity = 1.3f;
+        //ceilingLight.color = Color.white;
+        //ceilingLight.intensity = 1.3f;
         activeCubeFlag = true;
     }
 
@@ -602,7 +627,8 @@ public class GameManager : MonoBehaviour
 	void packSelectDraw() {
         //JOSE TODO: (Possible Improvement) Destroying computron throws a null reference error. Meaning it is probably referenced somwhere else in the code
         //On top of that, if we ever wnat to get back to computron, we wont be able to (might have solved this on line 377)
-        Destroy(computron);
+        //Destroy(computron);
+        computron.SetActive(false);
         activeKits.Clear();
         clearTiles();
         currentNode = 0;
@@ -626,8 +652,8 @@ public class GameManager : MonoBehaviour
         clearTiles();
 
 		factoryCall.drawCube (uiCube, true);
-		ceilingLight.color = Color.white;
-		ceilingLight.intensity = 1.3f;
+		//ceilingLight.color = Color.white;
+		//ceilingLight.intensity = 1.3f;
 		nodeSelect = false;
 		activeCubeFlag = true;
 
@@ -683,12 +709,36 @@ public class GameManager : MonoBehaviour
         SaveLoad.Save(levelTracker);
     }
 
+    public CubeMap constructEmptyCube(int dimension) {
+        List<FaceMap> newFML = new List<FaceMap>();
+        for (int i = 0; i < 6; i++) {
+            int[,] nodes = new int[dimension, dimension];
+            for (int j = 0; j < dimension; j++) {
+                for (int k = 0; k < dimension; k++) {
+                    if(i != 2 || (j != dimension/2 && j != dimension/2 - 1 && !(dimension % 2 != 0 && j == dimension/2+1)) 
+                        || (k != dimension / 2 && k != dimension / 2 - 1 && !(dimension % 2 != 0 && k == dimension / 2 + 1)))
+                        nodes[j, k] = 1;
+                }
+            }
+
+            FaceMap newFM = new FaceMap(nodes);
+            newFML.Add(newFM);
+        }
+
+        return new CubeMap(dimension, 6, newFML, null);
+    }
+
     public string printLevelString(bool export) {
         int numFaces = 0;
         if (verifyLevel != null) {
             numFaces = verifyLevel.dimension;
         } else {
-            numFaces = NodeArray[currentNode][currentLevel].dimension;
+
+            if (currentLevel == 0 && currentNode == NodeArray.Count - 1) {
+                numFaces = EditorModeManager.instance.dim;
+            } else {
+                numFaces = NodeArray[currentNode][currentLevel].dimension;
+            }
         }
 
        
@@ -780,7 +830,16 @@ public class GameManager : MonoBehaviour
     }
 
     public bool checkLevelStatus(int currentLevel) {
+        if (levelTracker[currentNode].Length < currentLevel) {
+            return false;
+        }
         return levelTracker[currentNode][currentLevel - 1];
+    }
+
+    public void toggleComputerOn() {
+        levelSelectDraw();
+        clearTiles();
+        computron.SetActive(true);
     }
 
 }
