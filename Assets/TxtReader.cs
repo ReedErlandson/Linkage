@@ -33,7 +33,7 @@ public class TxtReader : MonoBehaviour
         string[] readSolArray = inp_ln.Split(','); // splits it into its individual tile types
         for (int l = 0; l < readSolArray.Length; l++)
         {
-            readTypeArray.Add((int)char.GetNumericValue(readSolArray[l][0])); // this is the tile type
+            readTypeArray.Add((int)readSolArray[l][0] - 96); // this is the tile type
             readSolArray[l] = readSolArray[l].Substring(2); // this is the pattern
         }
 

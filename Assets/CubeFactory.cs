@@ -104,7 +104,7 @@ public class CubeFactory : MonoBehaviour {
                 //*/
 
                 //gate array append
-                if (newTile.GetComponent<Tile> ().tileType < 10 && newTile.GetComponent<Tile> ().tileType > 1) { //place gate Icon
+                if (newTile.GetComponent<Tile> ().tileType < 13 && newTile.GetComponent<Tile> ().tileType > 1) { //place gate Icon
 					GameObject newLinkIcon = Instantiate(linkIconPrefab, new Vector3 (0,0,0), Quaternion.identity) as GameObject;
 					linkNodeScript newLinkScript = newLinkIcon.GetComponent<linkNodeScript> ();
 					newLinkScript.tilePos = newTile.GetComponent<Transform>().position;

@@ -185,6 +185,7 @@ public class GameManager : MonoBehaviour
                 toggleComputerOn();
             } else {
                 levelSelectDraw();
+                editMode = false;
             }
         }
 
@@ -245,6 +246,7 @@ public class GameManager : MonoBehaviour
         if (editMode && Input.GetKeyDown(KeyCode.M)) {
             string levelCode = printLevelString(false);
             editMode = false;
+            paintDebug = false;
             print("verifyLevel");
             notification.instance.updateNotification("verify level", 2);
 
@@ -503,20 +505,24 @@ public class GameManager : MonoBehaviour
 			aTile.getNeighbors();
 			aTile.contiguousLink = false;
 		}
-		//check links
-		for (int i = 0; i<linkStateArray.Length; i++) {
-			linkStateArray [i] = 0;
-		}
-			
-		foreach (Tile gateTile in gateArray) {
-			pingedTiles.Clear ();
-			gateTile.pingNeighbors ();
-		}
+
+        if (!editMode) {
+            //check links
+            for (int i = 0; i < linkStateArray.Length; i++) {
+                linkStateArray[i] = 0;
+            }
+
+            foreach (Tile gateTile in gateArray) {
+                pingedTiles.Clear();
+                gateTile.pingNeighbors();
+            }
+        }
 
 		//update tiles
 		foreach (Tile eaTile in tileArray) {
 			eaTile.updateFlag = true;
 		}
+        
 
 		//check level complete
 		if (!levelCompleted && !paintDebug && !editMode) {
@@ -526,13 +532,12 @@ public class GameManager : MonoBehaviour
 				}
 			}
 			levelBookend ();
-			//levelJanitor ();
 		}
 	}
 
 	void levelBookend() {
 		levelCompleted = true;
-
+        printSolutions();
         if (verifyLevel != null) {
             printLevelString(true);
         } else {
@@ -558,7 +563,7 @@ public class GameManager : MonoBehaviour
 			Destroy (tileIcon);
 		}
 		tileIconArray.Clear ();
-
+        EmailManager.instance.receiveEmailConditions();
 	}
 
     // clears old level and opens new level
@@ -571,7 +576,7 @@ public class GameManager : MonoBehaviour
             print("level verified: new level added");
             notification.instance.updateNotification("verify level", 2);
             NodeArray[currentNode].Add(verifyLevel);
-            resetLevelTracker(); // this resets the whole level matrix grid. Id want to only update the size of the current one somewhere down the line
+            updateLevelTracker(); // this resets the whole level matrix grid. Id want to only update the size of the current one somewhere down the line
             levelSelectDraw();
             verifyLevel = null;
         } else if (NodeArray[currentNode].Count <= currentLevel) {
@@ -594,7 +599,7 @@ public class GameManager : MonoBehaviour
 	}
 
     void levelJanitor(CubeMap newCube) {
-        currentLevel += 1;
+        //currentLevel += 1;
 		levelColorCount = 0;
         clearTiles();
 
@@ -697,13 +702,21 @@ public class GameManager : MonoBehaviour
         SaveLoad.Save(levelTracker);
     }
 
-    // being able to update the level tracker's size without messing with the current tracker. Still is a work in progress
+    // Updates the level tracker data to be the same size as the current node array without overriding current data
     public void updateLevelTracker() {
+        
         for (int i = 0; i < NodeArray.Count; i++) {
+            
             if (i >= levelTracker.Count) {
                 levelTracker.Add(new bool[NodeArray[i].Count]);
-            } else {
-                
+            } else { 
+                if (NodeArray[i].Count > levelTracker[i].Length) {
+                    bool[] updatedList = new bool[NodeArray[i].Count];
+                    for (int j = 0; j < levelTracker[i].Length; j++) {
+                        updatedList[j] = levelTracker[i][j];
+                    }
+                    levelTracker[i] = updatedList;
+                }
             }
         }
         SaveLoad.Save(levelTracker);
@@ -733,7 +746,7 @@ public class GameManager : MonoBehaviour
         if (verifyLevel != null) {
             numFaces = verifyLevel.dimension;
         } else {
-
+            print(currentNode + "-" + currentLevel);
             if (currentLevel == 0 && currentNode == NodeArray.Count - 1) {
                 numFaces = EditorModeManager.instance.dim;
             } else {
@@ -797,7 +810,7 @@ public class GameManager : MonoBehaviour
             }
 
             firstOne = false;
-            solution += gateArray[i].tileType + ":" + printTileCoordinate(tileArray, i);
+            solution += (char)(gateArray[i].tileType + 96) + ":" + printTileCoordinate(tileArray, i);
         }
 
         //StreamWriter writer = new StreamWriter(solutionPath, true);
@@ -834,6 +847,15 @@ public class GameManager : MonoBehaviour
             return false;
         }
         return levelTracker[currentNode][currentLevel - 1];
+    }
+
+    public int getNumOfLevelsCompleted() {
+        bool[] pack = levelTracker[currentNode];
+        int solved = 0;
+        for (int i = 0; i < pack.Length; i++) {
+            solved += pack[i] ? 1 : 0;
+        }
+        return solved;
     }
 
     public void toggleComputerOn() {
