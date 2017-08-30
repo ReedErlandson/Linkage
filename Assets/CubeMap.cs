@@ -15,6 +15,7 @@ public class CubeMap
         fMapList = nFML;
         solution = sol;
     }
+
     public CubeMap(int newDimension, int newFaces, List<FaceMap> nFML) {
 		dimension = newDimension;
 		numFaces = newFaces;

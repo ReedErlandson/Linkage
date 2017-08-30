@@ -237,6 +237,7 @@
     <Compile Include="Assets\linkNodeScript.cs" />
     <Compile Include="Assets\nodeBillScript.cs" />
     <Compile Include="Assets\notification.cs" />
+    <Compile Include="Assets\proceduralPuzzleManager.cs" />
     <Compile Include="Assets\toggleLight.cs" />
   </ItemGroup>
   <ItemGroup>

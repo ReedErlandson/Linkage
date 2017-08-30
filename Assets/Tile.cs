@@ -65,26 +65,28 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 		managerCall.pingedTiles.Add (this);
 		foreach (Tile anT in activeNeighbors) {
 			if (!managerCall.pingedTiles.Contains (anT)) {
-				if (anT.isGate) {
-					managerCall.linkStateArray [tileType - 24] = 1;
-					foreach (Tile alT in managerCall.pingedTiles) {
-						alT.contiguousLink = true;
-					}
-					return;
-				}
-				anT.pingNeighbors ();
+                if (anT.isGate) {
+                    managerCall.linkStateArray[tileType - 24] = 1;
+                    foreach (Tile alT in managerCall.pingedTiles) {
+                        alT.contiguousLink = true;
+                    }
+                    return;
+                } else {
+                    anT.pingNeighbors();
+                }
 			}
 		}
 	}
 
+    //TODO: there is probably a better way to handle this whole function. One of these days just mess around and see what I can do
 	public void getNeighbors() {
-
 		activeNeighbors.Clear ();
-
 		//get left neighbor
 		int targetX = xPos -1;
 		int targetY = yPos;
 		int targetF = fNo;
+
+        // handles if the neighboring tile is on another face
 		if (targetX < 0) {
 			if (fNo == 3 ) {
 				targetY = 0;
@@ -98,15 +100,10 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 			}
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 0];
 		}
-		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-24 || parsedTile.tileType == tileType+24)) {
-				activeNeighbors.Add (parsedTile);
-				//Debug.Log ("Left active neighbor");
-			}
-		}
+        getSingleNeighbor(targetX, targetY, targetF);
 
-		//get right neighbor
-		targetX = xPos +1;
+        //get right neighbor
+        targetX = xPos +1;
 		targetY = yPos;
 		targetF = fNo;
 		if (targetX > gridDim-1) {
@@ -123,15 +120,10 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 			}
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 2];
 		}
-		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-24 || parsedTile.tileType == tileType+24)) {
-				activeNeighbors.Add (parsedTile);
-				//Debug.Log("Right active neighbor");
-			}
-		}
+        getSingleNeighbor(targetX, targetY, targetF);
 
-		//get up neighbor
-		targetX = xPos;
+        //get up neighbor
+        targetX = xPos;
 		targetY = yPos + 1;
 		targetF = fNo;
 		if (targetY > gridDim - 1) {
@@ -150,15 +142,10 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 			}
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 1];
 		}
-		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType>1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType-24 || parsedTile.tileType == tileType+24)) {
-				activeNeighbors.Add (parsedTile);
-				//Debug.Log("Top active neighbor");
-			}
-		}
+        getSingleNeighbor(targetX, targetY, targetF);
 
-		//get down neighbor
-		targetX = xPos;
+        //get down neighbor
+        targetX = xPos;
 		targetY = yPos - 1;
 		targetF = fNo;
 		if (targetY < 0) {
@@ -180,14 +167,19 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 			}
 			targetF = managerCall.wrapPointerArray [(fNo - 1) * 4 + 3];
 		}
-		foreach (Tile parsedTile in managerCall.tileArray) {
-			if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType > 1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType - 24
-                || parsedTile.tileType == tileType+24)) {
-				activeNeighbors.Add (parsedTile);
-				//Debug.Log ("Bottom active neighbor");
-			}
-		}
+        getSingleNeighbor(targetX, targetY, targetF);
 	}
+
+    // finds neighbor according to the coordinates and adds them to the active neighbor list
+    void getSingleNeighbor(int targetX, int targetY, int targetF) {
+        foreach (Tile parsedTile in managerCall.tileArray) {
+            if (parsedTile.xPos == targetX && parsedTile.yPos == targetY && parsedTile.fNo == targetF && parsedTile.tileType > 1 && (parsedTile.tileType == tileType || parsedTile.tileType == tileType - 24
+                || parsedTile.tileType == tileType + 24)) {
+                activeNeighbors.Add(parsedTile);
+                break; //this is only a temporary fix, but it should cut the loop iteration time down a bit
+            }
+        }
+    }
 
 	IEnumerator wakeAnim() {
 		float progress = 0;

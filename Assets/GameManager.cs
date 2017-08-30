@@ -500,6 +500,7 @@ public class GameManager : MonoBehaviour
 	void updateClickedTile(Tile tilePointer) {
 		tilePointer.tileType = 	paintSlug;
 		audioSrc.PlayOneShot(tileClick, 0.8F);
+
 		//update neighbors
 		foreach (Tile aTile in tileArray) {
 			aTile.getNeighbors();
@@ -508,7 +509,7 @@ public class GameManager : MonoBehaviour
 
         if (!editMode) {
             //check links
-            for (int i = 0; i < linkStateArray.Length; i++) {
+            for (int i = 0; i < linkStateArray.Length; i++) { 
                 linkStateArray[i] = 0;
             }
 
@@ -598,17 +599,24 @@ public class GameManager : MonoBehaviour
         }
 	}
 
-    void levelJanitor(CubeMap newCube) {
+    public void levelJanitor(CubeMap newCube) {
         //currentLevel += 1;
 		levelColorCount = 0;
         clearTiles();
 
+        foreach (GameObject tileIcon in tileIconArray) {
+            Destroy(tileIcon);
+        }
+
+        tileIconArray.Clear();
         //load new level
         factoryCall.drawCube(newCube, false);
         gateArray.Sort();
         //ceilingLight.color = Color.white;
         //ceilingLight.intensity = 1.3f;
         activeCubeFlag = true;
+
+
     }
 
 	void paintHint(int colorPointer) {
@@ -740,6 +748,25 @@ public class GameManager : MonoBehaviour
 
         return new CubeMap(dimension, 6, newFML, null);
     }
+
+    public CubeMap constructOneFaceCube(int dimension) {
+        List<FaceMap> newFML = new List<FaceMap>();
+
+        for (int i = 0; i < 6; i++) {
+            int[,] nodes = new int[dimension, dimension];
+            for (int j = 0; j < dimension; j++) {
+                for (int k = 0; k < dimension; k++) {
+                    if (i == 0)
+                        nodes[j, k] = 1;
+                }
+            }
+
+            FaceMap newFM = new FaceMap(nodes);
+            newFML.Add(newFM);
+        }
+
+        return new CubeMap(dimension, 6, newFML, null);
+    } 
 
     public string printLevelString(bool export) {
         int numFaces = 0;
