@@ -8,7 +8,6 @@ public class CubeFactory : MonoBehaviour {
 	//linkage
 	GameManager managerCall;
 
-
 	//definitions
 	public float spacerSlug; // padding between cubes
 	public float maxSize;

@@ -88,8 +88,9 @@ public class GameManager : MonoBehaviour
 	public string solutionPath;
 	public string solutionResult = "";
 
-    [Header("Tile Editor")]
+    [Header("modes")]
     public bool editMode;
+    public bool randomizerMode;
 
 	//light
     [Space()]
@@ -181,8 +182,9 @@ public class GameManager : MonoBehaviour
                 }
                 tileIconArray.Clear();
 
-            } else if (nodeSelect)  {
+            } else if (nodeSelect || randomizerMode)  {
                 toggleComputerOn();
+                randomizerMode = false;
             } else {
                 levelSelectDraw();
                 editMode = false;
@@ -379,8 +381,12 @@ public class GameManager : MonoBehaviour
 			if (levelCompleted && GvrController.ClickButtonDown) {
 			#else
 			if (levelCompleted && Input.GetMouseButtonDown (0)) {
-			#endif
-				levelJanitor ();
+#endif
+                if (randomizerMode) {
+                    levelJanitor(GetComponent<proceduralPuzzleManager>().createRandomPuzzle());
+                } else {
+                    levelJanitor();
+                }
 			}
 
             if (clickTarget == null) {
@@ -538,11 +544,19 @@ public class GameManager : MonoBehaviour
 
 	void levelBookend() {
 		levelCompleted = true;
+
+        printLevelString(false);
         printSolutions();
+
         if (verifyLevel != null) {
             printLevelString(true);
         } else {
-            if (levelTracker[currentNode].Length > currentLevel) {
+            if (levelTracker[currentNode].Length > currentLevel && !randomizerMode) {
+
+                if (!levelTracker[currentNode][currentLevel]) {
+                    EmailManager.instance.receiveEmailConditions();
+                }
+
                 levelTracker[currentNode][currentLevel] = true;
                 SaveLoad.Save(levelTracker);
             }
@@ -564,7 +578,6 @@ public class GameManager : MonoBehaviour
 			Destroy (tileIcon);
 		}
 		tileIconArray.Clear ();
-        EmailManager.instance.receiveEmailConditions();
 	}
 
     // clears old level and opens new level
@@ -708,6 +721,11 @@ public class GameManager : MonoBehaviour
             }
         }
         SaveLoad.Save(levelTracker);
+
+
+
+        EmailManager.instance.resetInbox();
+
     }
 
     // Updates the level tracker data to be the same size as the current node array without overriding current data
@@ -749,15 +767,19 @@ public class GameManager : MonoBehaviour
         return new CubeMap(dimension, 6, newFML, null);
     }
 
-    public CubeMap constructOneFaceCube(int dimension) {
+    public CubeMap constructXFaceCube(int dimension, int numOfFaces) {
         List<FaceMap> newFML = new List<FaceMap>();
 
         for (int i = 0; i < 6; i++) {
             int[,] nodes = new int[dimension, dimension];
             for (int j = 0; j < dimension; j++) {
                 for (int k = 0; k < dimension; k++) {
-                    if (i == 0)
-                        nodes[j, k] = 1;
+                    if (i < numOfFaces) {
+                            if (i != 2 || (j != dimension / 2 && j != dimension / 2 - 1 && !(dimension % 2 != 0 && j == dimension / 2 + 1))
+                                || (k != dimension / 2 && k != dimension / 2 - 1 && !(dimension % 2 != 0 && k == dimension / 2 + 1)))
+                                nodes[j, k] = 1;
+                        
+                    }
                 }
             }
 
@@ -773,7 +795,6 @@ public class GameManager : MonoBehaviour
         if (verifyLevel != null) {
             numFaces = verifyLevel.dimension;
         } else {
-            print(currentNode + "-" + currentLevel);
             if (currentLevel == 0 && currentNode == NodeArray.Count - 1) {
                 numFaces = EditorModeManager.instance.dim;
             } else {
@@ -837,21 +858,45 @@ public class GameManager : MonoBehaviour
             }
 
             firstOne = false;
-            solution += (char)(gateArray[i].tileType + 96) + ":" + printTileCoordinate(tileArray, i);
+            solution += (char)(gateArray[i].tileType + 96) + ":" + printTileCoordinate(i);
         }
-
-        //StreamWriter writer = new StreamWriter(solutionPath, true);
-        //writer.WriteLine("\n" + solution);
-        //writer.Close();
 
         print(solution);
         return solution;
     }
 
+    string printTileCoordinate(int i) {
+        string solution = "";
+        List<Tile> tilePath = getPath(gateArray[i].tileType, gateArray[i], new List<Tile>());
+
+
+        for (int j = 0; j < tilePath.Count; j++) {
+            if (j == 0) {
+                solution += "" + tilePath[j].fNo + tilePath[j].xPos + tilePath[j].yPos;
+            } else {
+                solution += "." + tilePath[j].fNo + tilePath[j].xPos + tilePath[j].yPos;
+            }
+        }
+
+        return solution;
+    }
+
+    List<Tile> getPath(int index, Tile tile, List<Tile> tilePath) {
+        foreach (Tile neighbor in tile.activeNeighbors) {
+            if (!tilePath.Contains(neighbor) && neighbor.tileType == index + 24) {
+                tilePath.Add(neighbor);
+                getPath(index,neighbor,tilePath);
+            }
+        }
+
+        return tilePath;
+    }
+
     string printTileCoordinate(List<Tile> tileArray, int i) {
+
         bool firstOne = true;
         string solution = "";
-        for (int j = 0; j < tileArray.Count; j++) { //there is probably a waaaaaay better way of doing this. 
+        for (int j = 0; j < tileArray.Count; j++) { //there is probably a more efficient way of doing this rather than iterating through every single tile
             if (tileArray[j].tileType == gateArray[i].tileType + 24)  {
                 if (firstOne) {
                     solution += "" + tileArray[j].fNo + tileArray[j].xPos + tileArray[j].yPos;

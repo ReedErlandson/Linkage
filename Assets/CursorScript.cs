@@ -10,7 +10,7 @@ public class CursorScript : MonoBehaviour {
 	public Tile focusedTile;
 	public GameObject focusedGM;
 
-
+    public GameObject pointerEnd;
 
 	void Start () {
 		mainCam = GameObject.Find ("Main Camera").GetComponent<Transform> ();
@@ -45,9 +45,12 @@ public class CursorScript : MonoBehaviour {
 			GameObject focusedObject = raycastHit.transform.gameObject;
 			focusedTile = focusedObject.GetComponent<Tile> ();
 			focusedGM = raycastHit.transform.gameObject;
+
+            focusedGM.SendMessage("hovered",SendMessageOptions.DontRequireReceiver);
 		}
 
-		Vector3 endPosition = targetPosition + ( length * direction );
+		Vector3 endPosition = raycastHit.point;
+        pointerEnd.transform.position = endPosition;
 		laser.SetPosition( 0, targetPosition );
 		laser.SetPosition( 1, endPosition );
 	}

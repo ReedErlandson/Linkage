@@ -88,7 +88,7 @@ public class Tile : MonoBehaviour, IComparable<Tile>
 
         // handles if the neighboring tile is on another face
 		if (targetX < 0) {
-			if (fNo == 3 ) {
+            if (fNo == 3) {
 				targetY = 0;
 				targetX = yPos;
 			} else if (fNo == 6) {
