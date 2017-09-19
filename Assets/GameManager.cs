@@ -795,7 +795,9 @@ public class GameManager : MonoBehaviour
         if (verifyLevel != null) {
             numFaces = verifyLevel.dimension;
         } else {
-            if (currentLevel == 0 && currentNode == NodeArray.Count - 1) {
+            if (randomizerMode) {
+                numFaces = GetComponent<proceduralPuzzleManager>().dimension;
+            } else if (currentLevel == 0 && currentNode == NodeArray.Count - 1) {
                 numFaces = EditorModeManager.instance.dim;
             } else {
                 numFaces = NodeArray[currentNode][currentLevel].dimension;

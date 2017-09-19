@@ -21,7 +21,7 @@ public class CursorScript : MonoBehaviour {
 		laser.SetWidth( 0.05f, 0.05f );
 	}
 
-	void Update () {
+	void LateUpdate () {
 		//platformSpec
 		#if UNITY_ANDROID
 		Quaternion ori = GvrController.Orientation;

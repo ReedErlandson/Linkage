@@ -231,6 +231,7 @@
     <Compile Include="Assets\Tile.cs" />
     <Compile Include="Assets\TxtReader.cs" />
     <Compile Include="Assets\VRUIButton.cs" />
+    <Compile Include="Assets\customVRScrollView.cs" />
     <Compile Include="Assets\emailContent.cs" />
     <Compile Include="Assets\inboxTab.cs" />
     <Compile Include="Assets\jukeboxManager.cs" />

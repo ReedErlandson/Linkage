@@ -1,16 +1,42 @@
 - pack 1 (17 levels)
+
+-first face
 40:aaaa.cbbc.aaaa.aaaa|b:111.121
-40:bbbb.baaa.baaa.daaa,bbbb.aaab.aaab.aaac,bbca.aaad.aaab.aaab|b:232.231.230.220.210.200.300.310,c:102.101.100.110.120.130.333.332
 40:cbbc.aaaa.dbda.aaaa|b:110.120,c:112
 40:cbbb.dbdb.bbbb.caaa|b:110.120.130.131.102.112.122.132,c:111
+40:edbb.bcad.bbac.ebbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:112.113.123.133,c:120.130,d:101.102
+40:bbfd.fecb.ebbb.cbbd,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:122.123.113,c:131.132,d:112,e:110.100
+40:bbbb.baaa.baaa.daaa,bbbb.aaab.aaab.aaac,bbca.aaad.aaab.aaab|b:232.231.230.220.210.200.300.310,c:102.101.100.110.120.130.333.332
 40:bbbb.aaab.bbcb.bbbb,bbbb.baaa.bcbb.dadb|b:102.112.222.232,c:100.110.120.130.131.132.103.113.123.133.200.210.220.230.201.202.233
-40:bbbc.bbbb.bbdb.bbeb,debb.bbbc.bbbb.bbbb|b:100.110.120.230,c:112.103.113.201.202.203.213.223.233,d:101.111.121.131.102.132.133.211.212.222.232
 40:aebb.bbdb.bebb.aaaa,aaaa.bbcb.bdbb.bbca|b:201.211.202.203.213,c:101.111.231.222.232,d:120.130.131.122.132
+40:bbea.abba.abba.dbbe,cdab.bbab.bbbb.bbca,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:201.202.203.213,c:113.112.111.110.100.230.231.232.222.212.211,d:121.122.123
+40:bbbe.bacb.beab.abbb,abbb.abad.bbab.dcbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:120.110.100.101.102.232.233.223,c:230.220.210.211.212.202,d:131.132.133.123.113
+40:bbbc.bbbb.bbdb.bbeb,debb.bbbc.bbbb.bbbb|b:100.110.120.230,c:112.103.113.201.202.203.213.223.233,d:101.111.121.131.102.132.133.211.212.222.232
 40:dbbb.bfeb.bebb.bbbb,bbbc.bfbb.bdbb.bbbc|b:200.210.220.201.202.203.213.223,c:110.120.130.131.102.132.103.113.123.133.222.232,d:122,e:101.221.231
-40:bbbe.bcfb.debb.bbbc,fbbb.bbbb.bdbb.bbbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:101.103.113.123.201.211.221.231.202.203.213.223.233,c:222.232,d:131.122.132,e:100.110.120.210.220.230
 40:bbbb.abbb.aedb.bcac,bbbb.bbba.bdea.bbbb,bbbb.baab.baab.bbbb|b:130.131.132.103.200.201.202.203.213.223.233.300.310.320.330.331.332.333,c:120.121.210.211.301.302.303.313.323,d:100.110.111.220.230.221
+40:bbbe.bcfb.debb.bbbc,fbbb.bbbb.bdbb.bbbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:101.103.113.123.201.211.221.231.202.203.213.223.233,c:222.232,d:131.122.132,e:100.110.120.210.220.230
+
+- second face of levels
+
+40:bbbb.bedb.bbbb.bbbb,aaaa.aaaa.aabb.aaba,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,eabb.bcdc.aaaa.aaaa|b:601.223.222.232.102.101.100.110.120.130.131.132.133.630,c:122.123.620,d:112.113.103
+40:ebbb.fbbb.babd.bfbb,aaab.aaab.aaab.aaae,aaaa.aaaa.caac.bbdb,baaa.baaa.baaa.baaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:303.313.110.111.121.122.123.133.403.402.401.400.333,c:131.130.120,d:230.231.232,e:102.103
 40:bbbb.bbbf.ebbb.bbfe,bbbb.bbbb.bdbb.bbbb,bbbc.baaa.baac.bbdb|b:100.110.120.130.200.220.230.201.221.202.222.203.213.223.300.310.320.333,c:210.211.301.302.303.313,d:112.122.132,e:101.111.121.103.113.231.232.233
-40:aabc.aaba.bbba.aaaa,aaaa.aaaa.acbb.aaaa,aaaa.aaaa.aaaa.aaaa|b:120.121.102.112.122.222.232
+40:bbbb.ebbb.bbac.dcbb,aaaa.aaaa.aaaa.aaaa,faad.baab.baab.bfeb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:133.123,c:102.112.111.121.131.130.333.332.331,d:100.110.120,e:301.302.303
+40:gbbg.bbbf.bbbb.ebeb,aaab.aaab.aaab.aaab,aaaa.aaaa.aaaa.bbfc,baaa.baaa.baaa.daaa,aaaa.aaaa.aaaa.aaaa,cdbb.aaaa.aaaa.aaaa|b:400.401.402.132.122.112.102.232.233,c:630.620,d:113,e:121.111.101.231.230.303.313,f:110.120
+40:gbbb.bfbe.bbbb.gbbf,aaab.aaab.aaab.aaad,bbbb.baab.caac.bbeb,aaaa.aaaa.baaa.daaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:301.300.310.320.330.331,c:232.231.230.303.313.110.120.121.122.132.402,d:130.333,e:112.113.123,f:101.102
+40:bbgb.bbbg.faba.bbba,bbbe.bdbb.bebb.cdbb,cafb.baab.baab.bbbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:202.201.200,c:210.301.302.303.100.101.231.232.233.223,d:220.221.222,e:103.113.123.122.121.111.110.313.323.333.332.331.330,f:130
+40:bbbc.bfbb.bbbb.egbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,bbbb.bedb.bbbb.gfdc,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:400.410.420.430.431.432,c:422,d:102.101.100.110.120.121.131.401,e:112.122.132.402.412,f:123.133
+40:bbbb.fbhb.bbah.dbbb,fbbb.gbbg.bbbb.caaa,aaaa.aaaa.aaaa.aaaa,bbbc.bbbb.bbed.beaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa|b:202.212.222.232.102.112.111.110.120.130.400.410.420,c:113.123.133.403.402.401.411.421.431,d:412,e:100.230.220.210,f:211.221,g:131
+40:bbbb.babd.babb.bbbb,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,bbbb.ebed.bbbc.bbbf,aaaa.aaaa.aaaa.aaaa,bbhg.bbbb.bbhg.cbfa|b:422.412.402.132.122.121.120.110.100.101.102.103.600.601.602,c:130.400.410.420.430,d:411,e:423.413.403.133.123.113.610.611.612.613,f:631,g:621
+40:bbbb.bbbb.aaab.aaah,bbbe.bbbb.bbaa.bbbd,baab.baab.baab.baab,bbbb.bgab.bbab.fbgf,bbdc.bbeb.bbhb.cbbb,aaaa.aaaa.aaaa.aaaa|b:300.301.302.303.100.110.120.130.333.332.331.330.500.501.502,c:223.213.203.533.523.513.512.511.510,d:220.210.200.201.531,e:402.401.400.410.420.430.431.432,f:412.413,g:132.131.121.111.101.231.221.211.212.202.532
+40:aaaa.aaaa.aaaa.aaaa,bbdc.bbbb.bbae.dbbb,aaaa.aaaa.aaaa.aaaa,aafc.bbbb.bbeb.fbbb,aaaa.aaaa.aaaa.aaaa,aaaa.bbbb.bbbb.aaaa|b:231.221.211.212.213.602.612.622.632.423.433.432.431,c:210.200.201.202,d:233.223.601.611.621.631.413.412,e:421.411.401.402
+40:aaaa.aaaa.bbfg.dbbb,aaaa.aaaa.cbbb.bbbe,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaab.bbbb,aaaa.aaaa.bbbg.bbbf,bbbb.bcdb.bbbb.bbeb|b:212.222.232.102.112.113.610,c:600.601.602.612.622,d:223.213.203.603.613,e:123.620.630.631.632.633.503.513.523,f:133.403.413.423.433.432.502.512.522
+40:aaaa.aaaa.aaaa.aaaa,aafc.bbbb.faab.bbbb,aaaa.aaaa.aaaa.aaaa,cebd.bbba.bbbd.bbbe,aaaa.aaaa.aaaa.aaaa,ghbb.babb.bghb.bbbb|b:231.232.233.223.213.203.603.613.623.633.632.631.630.403.402.401,c:420.421.422,d:411.412.413.423,e:221.211.201,f:601.602,g:620.621
+
+50:dbbbc.bbebb.bbbbb.bbdbb.cbbbe,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa|b:130.120.110.111.112.122.132.133.134.124.114,c:101.102.103.113,d:131.141.142.143
+50:bbgde.bbibb.bbbbb.febbb.bbbbb,bhbbb.bbbib.bbcbb.bbbbb.bbbhg,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,bbbbb.bbbbb.bbcbb.bbdbb.fbbbb,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa|b:232.242.102.112.122.132.142.402.412,c:131.141.401.411.421.431.432.433,d:400.410.420.430.440.441.442.443.444.434.424.414.413.403.143.133.123,e:104.114.124.134.144,f:110.100.240.230.220.221.211.212.213.223.233.243,g:200.201.202.203.204.214.224,h:111.101.241
+50:bbebb.bbbbb.bbbbb.bbbbb.agbbb,aacda.aabba.aabbb.aabbb.aabbf,aaaaa.aabaa.aabaa.aaaaa.dbbbh,ahaaa.abaaa.bbaaa.bbaaa.bbaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,abfbb.gbbbb.bbbec.aaaaa.aaaaa|b:221.222.223.233.243.103.113.112.111.110.314.324.334.130.131.132.133.143.403.413.414.641,c:231.232.242.102.101.100,d:121.122.123.124.134.630.631,e:234.224.602.612.622.621,f:610.611,g:140.141.142.402.412.411
+50:baiab.babeb.babfb.abbbh.ebfba,bbbjg.abjbb.abcbb.dbbgb.aabbb,bbbca.daaaa.baaaa.baaah.bibab,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa,aaaaa.aaaaa.aaaaa.aaaaa.aaaaa|b:212.211.210.200.300.310.320,c:213.223.224.234.244.243.242.102.101.100.304.303.302,d:121.122.123.113.114,e:133.134,f:241.231.232,g:142.141.140.344,h:324,i:220
 
 - pack c (c levels)
 41:baaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa,aaaa.aaaa.aaaa.aaaa
